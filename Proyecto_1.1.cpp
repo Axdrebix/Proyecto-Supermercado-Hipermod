@@ -164,14 +164,15 @@ void iniciarSimulacion()
 	// LIMPIEZA DE PANTALLA
 	system("cls");
 	
-	//	LLAMO A LA FUNCION PARA AGREGAR LOS TIEMPOS A CADA CLIENTE
-	GenerarTiempoDeCompra();
-	
 	//	PARA QUE EL USUARIO INGRESE AL SISTEMA
 	fflush(stdin);
 	cout << "\nNombre y apellido: ";			cin.getline(clientes[0].nombre,40,'\n');	//	SU NOMBRE
 	cout << "\nCedula de identidad: V-";		cin>>clientes[0].cv;						//	SU CEDULA DE IDENTIDAD
 	cout << "\nSaldo disponible: $"; 			cin>>clientes[0].dinero_disponible;			//	SU DINERO DISPONIBLe
+	
+	//	LLAMO A LA FUNCION PARA AGREGAR LOS TIEMPOS A CADA CLIENTE
+	GenerarTiempoDeCompra();
+	fflush(stdin);
 	
 	// LLAMO A LA FUNCION PARA AGREGAR A TODOS LOS USUARIOS
     cargar_clientes();
@@ -182,7 +183,7 @@ void iniciarSimulacion()
     fflush(stdin);
 	
 	
-	int j,k; //	J = PRODUCTO RANDOM, K = NUMERO DE ARTICULOS A AGREGAR AL CARRITO
+	int j,k; 										//	J = PRODUCTO RANDOM, K = NUMERO DE ARTICULOS A AGREGAR AL CARRITO
 	srand(static_cast<unsigned int>(time(nullptr)));	//	DEFINO SRAND PARA CREAR UN NUMERO RANDOM
 	
 	for(int m=0;m<11;m++)
