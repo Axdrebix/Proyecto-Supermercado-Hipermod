@@ -39,10 +39,10 @@ queue<Clientes> colaClientes;
 
 // DEFINICION GLOBAL DE VARIABLES
 int clientes_presentes= 0;
-int compradores =0;								//Clientes que excedieron el tiempo y no les alcanso el dinero
+int compradores = 0;								//Clientes que excedieron el tiempo y no les alcanso el dinero
 int tiempo_excedido = 0;										//Agrega a los clientes que excedieron el tiempo
 int espaciado;
-float totalVenta =0;
+float totalVenta = 0;
 
 //	PROTOTIPOS DE FUNCIONES
 void cargar_productos();										//Cargar productos al programa
@@ -162,7 +162,9 @@ void encolar(const Clientes& cliente)
 /*		FUNCION PARA LA INIALIZACION DEL PROGRAMA DE COMPRAS			*/
 void iniciarSimulacion()
 {	
-
+	// LIMPIEZA DE PANTALLA
+	system("cls");
+	
 	//	PARA QUE EL USUARIO INGRESE AL SISTEMA
 	fflush(stdin);
 	cout << "\nNombre y apellido: ";			cin.getline(clientes[0].nombre,40,'\n');	//	SU NOMBRE
@@ -289,10 +291,11 @@ void BaseDeDatos_Clientes()
 	fflush(stdin);
 	
 	//	MOSTRAMOS LOS DATOS DEL CLIENTE
+	system("cls");
     cout << "\nBase de datos de los clientes:\n"<<endl;
     for (int i=0; i<11; i++)
 	{
-		if(clientes[i].tiempo_de_compra <= 10 && clientes[i].dinero_disponible >= clientes[i].PagoT)
+		if(clientes[i].tiempo_de_compra < 10 && clientes[i].dinero_disponible > clientes[i].PagoT)
 		{
 			cout << "\n";																			//ESPACIO ENTRE DATOS DE CADA CLIENTE
 	        cout << "Nombre: " 					<< clientes[i].nombre 			<< endl;			//NOMBRE DEL CLIENTE
@@ -304,23 +307,23 @@ void BaseDeDatos_Clientes()
 			{
 			    cout <<l<<" "<< clientes[i].Carrito.top() << endl;
 			    clientes[i].Carrito.pop();
-			    fflush(stdin);
 		    }
 		    totalVenta += clientes[i].PagoT;
 	        compradores++;
 	        clientes_presentes++;		    
 		    esperando_compra(clientes[i].tiempo_de_compra);
-	        //cout << "------------------------" << endl;
 	        fflush(stdin);
 	    }
 	    else
 	    {
 	        clientes_presentes++;	    	
 	    	cout << "\n";
-	    	cout << "El cliente "<<clientes[i].nombre<<" ha excedido el tiempo de compra o no tiene los fondo suficiente, ha salido de la cola\n";
-	    	Sleep(1500);
+	    	cout << "El cliente "<<clientes[i].nombre 	<< endl;
+	    	cout << "\nHa excedido el tiempo de compra" 	<< endl;
+	    	cout << "No tiene fondos suficientes" 		<< endl;
+	    	cout << "Ha salido de la cola" 				<< endl;
+	    	Sleep(3000);
 	    	system("cls");
-	    	esperando_compra(clientes[i].tiempo_de_compra);
 			fflush(stdin);
 		}	
 	}
@@ -329,7 +332,7 @@ void BaseDeDatos_Clientes()
 	cout << "\nCantidad de Clientes que superaron el tiempo limite: " 	<< tiempo_excedido << endl;
 	cout << "\n\tCantidad de Clientes que compraron exitosamente: " 	<< compradores << endl;
 	cout << "\n\tCantidad de Clientes que se presentaron a comprar: " 	<< clientes_presentes << endl;
-	cout << "\n\tTotal de ventas: $"<<totalVenta<<endl;	
+	cout << "\n\tTotal de ventas: $"									<<totalVenta<<endl;	
 }	
 	
 //	FUNCION PARA CARGAR LOS PRODUCTOS DESDE EL .TXT
@@ -338,11 +341,12 @@ void BaseDeDatos_Productos()
 	cargar_productos();
 	
     cout << "\n";
-	for(int i=0; i<9; i++)
+	for(int i=0; i<10; i++)
 	{
-	    cout<<".- "		<<productos[i].descripcion;
-	    cout<<" $"		<<productos[i].precio<<endl;
-	    cout<<" Stock: "<<productos[i].stock<<endl;
+		cout<<"ID "		<<productos[i].id			<<endl;
+	    cout<<".- "		<<productos[i].descripcion	<<endl;
+	    cout<<" $"		<<productos[i].precio		<<endl;
+	    cout<<" Stock: "<<productos[i].stock		<<endl;
 	    cout<<"\n";
 	};
     fflush(stdin);
