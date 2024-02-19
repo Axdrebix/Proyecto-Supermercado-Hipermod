@@ -39,7 +39,7 @@ queue<Clientes> colaClientes;
 
 // DEFINICION GLOBAL DE VARIABLES
 int clientes_presentes= 0;
-int compradores = 0;								//Clientes que excedieron el tiempo y no les alcanso el dinero
+int compradores = 0;											//Clientes que excedieron el tiempo y no les alcanso el dinero
 int tiempo_excedido = 0;										//Agrega a los clientes que excedieron el tiempo
 int espaciado;
 float totalVenta = 0;
@@ -54,7 +54,7 @@ void encolar(const Clientes& cliente);							//Agrega a los clientes en un cola
 void Creditos();												//Creditos de todos los participantes
 void menu(int& eleccion);										//Menu del usuario
 void iniciarSimulacion();										//Inicializar la simulacion de compra
-void GenerarTiempoDeCompra();									//Generar Tiempo de compra Aleatorio
+void Generar_Tiempos();											//Generar Tiempos Aleatorios
 void esperando_compra(int tiempo);								//Funcion para pausar el programa mientras se realiza  una compra
 void Otros();
 
@@ -138,18 +138,23 @@ void mostrar_nombre_supermercado()
 }
 
 /*		FUNCION PARA GENERAL TIEMPO DE COMPRA ALEATORIO	*/
-void GenerarTiempoDeCompra()
+void Generar_Tiempos()
 {
     srand(static_cast<unsigned int>(time(nullptr)));
     for (int i = 0; i < 14; i++)  
 	{
         clientes[i].tiempo_de_compra = rand() % 15 + 1;
-        if(clientes[i].tiempo_de_compra > 10)
+        if(clientes[i].tiempo_de_compra >= 10)
     	{
     		tiempo_excedido++;
 		}
 		fflush(stdin);
     }
+    
+    for (int i = 0; i < 14; i++)
+    {
+    	clientes[i].tiempo_de_llegada = rand() % 6 + 1;
+	}
 }
 
 //				FUNCION PARA ENCOLAR A LOS CLIENTES
@@ -172,22 +177,22 @@ void iniciarSimulacion()
 	cout << "\nSaldo disponible: $"; 			cin>>clientes[0].dinero_disponible;			//	SU DINERO DISPONIBLe
 	
 	//	LLAMO A LA FUNCION PARA AGREGAR LOS TIEMPOS A CADA CLIENTE
-	GenerarTiempoDeCompra();
+	Generar_Tiempos();
 	fflush(stdin);
 	
 	// LLAMO A LA FUNCION PARA AGREGAR A TODOS LOS USUARIOS
     cargar_clientes();
     fflush(stdin);
 	
-	// LLAMO A LA FUNCION PARA AGREGAR A TODOS LOS PRODUCTOS
+	// LLAMO A LA FUNCION PARA AGREGAR TODOS LOS PRODUCTOS
 	cargar_productos();
     fflush(stdin);
 	
-	
+	// AGREGAR PRODUCTOS A LOS CLIENTES
 	int j,k; 										//	J = PRODUCTO RANDOM, K = NUMERO DE ARTICULOS A AGREGAR AL CARRITO
 	srand(static_cast<unsigned int>(time(nullptr)));	//	DEFINO SRAND PARA CREAR UN NUMERO RANDOM
 	
-	for(int m=0;m<14;m++)
+	for(int m = 0;m < 14;m++)
 	{
 		for(int i = 0; i < k; i++)	//	i = VARIABLE DE ITERACION HASTA LLEGAR AL NUMERO K
 		{
@@ -205,13 +210,15 @@ void iniciarSimulacion()
 	system("cls");
     for (int i=0; i<14; i++)
 	{
-		if(clientes[i].tiempo_de_compra < 14 && clientes[i].dinero_disponible > clientes[i].PagoT)
+		if(clientes[i].tiempo_de_compra <= 10 && clientes[i].dinero_disponible >= clientes[i].PagoT)
 		{
-			cout << "\n";																			//ESPACIO ENTRE DATOS DE CADA CLIENTE
-	        cout << "Nombre: " 					<< clientes[i].nombre 			<< endl;			//NOMBRE DEL CLIENTE
-	        cout << "Cedula de identidad: V-" 	<< clientes[i].cv 				<< endl;			//CEDULA DEL CLIENTE
-	        cout << "Total a pagar: " 			<< clientes[i].PagoT 			<< endl;			//PAGO TOTAL A REALIZAR
-	        cout << "Tiempo de compra: " 		<< clientes[i].tiempo_de_compra << " min" << endl;	//MUESTRA EL TIEMPO TOTAL DE COMPRA
+			cout << "\n";																				//ESPACIO ENTRE DATOS DE CADA CLIENTE
+	        cout << "Nombre: " 					<< clientes[i].nombre 				<< endl;			//NOMBRE DEL CLIENTE
+	        cout << "Cedula de identidad: V-" 	<< clientes[i].cv 					<< endl;			//CEDULA DEL CLIENTE
+	        cout << "Saldo disponible: " 		<< clientes[i].dinero_disponible 	<<"$"	  << endl;	//DINERO DEL CLIENTE
+	        cout << "Total a pagar: " 			<< clientes[i].PagoT 				<<"$"	  << endl;	//PAGO TOTAL A REALIZAR
+	        cout << "Tiempo de compra: " 		<< clientes[i].tiempo_de_compra 	<< " min" << endl;	//MUESTRA EL TIEMPO TOTAL DE COMPRA
+	        cout << "Tiempo de llegada: " 		<< clientes[i].tiempo_de_llegada 	<< " min" << endl;	//MUESTRA EL TIEMPO TOTAL DE LLEGADA
 	        
 	        for(int l = 1;!clientes[i].Carrito.empty();l++)
 			{
@@ -229,7 +236,7 @@ void iniciarSimulacion()
 	        clientes_presentes++;	    	
 	    	cout << "\n";
 	    	cout << "El cliente "<<clientes[i].nombre 	<< endl;
-	    	cout << "\nHa excedido el tiempo de compra" 	<< endl;
+	    	cout << "\nHa excedido el tiempo de compra" << endl;
 	    	cout << "No tiene fondos suficientes" 		<< endl;
 	    	cout << "Ha salido de la cola" 				<< endl;
 	    	Sleep(3000);
@@ -346,7 +353,7 @@ void mostrar_Productos()
 // FUNCION PARA MOSTRAR CLIENTES EN OPCION (OTROS)
 void mostrar_Clientes()
 {
-	GenerarTiempoDeCompra();
+	Generar_Tiempos();
 	cargar_clientes();	
 	for (int i = 1; i<14; i++){
 			cout << "\n";																				//ESPACIO ENTRE DATOS DE CADA CLIENTE
