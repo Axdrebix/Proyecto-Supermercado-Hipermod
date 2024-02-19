@@ -47,17 +47,16 @@ float totalVenta = 0;
 //	PROTOTIPOS DE FUNCIONES
 void cargar_productos();										//Cargar productos al programa
 void cargar_clientes();											//Cargar clientes al programa
+void mostrar_Productos();
+void mostrar_Clientes();
 void mostrar_nombre_supermercado();								//Muestra el Nombre del Supermercado
 void encolar(const Clientes& cliente);							//Agrega a los clientes en un cola
-void BaseDeDatos_Clientes();									//Muestra la base de datos de todoslos compradores cargados
-void BaseDeDatos_Productos();									//CARGA TODOS LOS PRODUCTOS AL SISTEMA
 void Creditos();												//Creditos de todos los participantes
 void menu(int& eleccion);										//Menu del usuario
 void iniciarSimulacion();										//Inicializar la simulacion de compra
 void GenerarTiempoDeCompra();									//Generar Tiempo de compra Aleatorio
 void esperando_compra(int tiempo);								//Funcion para pausar el programa mientras se realiza  una compra
 void Otros();
-void mostrarClientes();
 
 //		FUNCION PRINCIPAL
 int main()
@@ -165,110 +164,20 @@ void iniciarSimulacion()
 	// LIMPIEZA DE PANTALLA
 	system("cls");
 	
+	//	LLAMO A LA FUNCION PARA AGREGAR LOS TIEMPOS A CADA CLIENTE
+	GenerarTiempoDeCompra();
+	
 	//	PARA QUE EL USUARIO INGRESE AL SISTEMA
 	fflush(stdin);
 	cout << "\nNombre y apellido: ";			cin.getline(clientes[0].nombre,40,'\n');	//	SU NOMBRE
 	cout << "\nCedula de identidad: V-";		cin>>clientes[0].cv;						//	SU CEDULA DE IDENTIDAD
 	cout << "\nSaldo disponible: $"; 			cin>>clientes[0].dinero_disponible;			//	SU DINERO DISPONIBLe
 	
-	// LLAMO A LA FUNCION PARA AGREGAR A TODOS LOS PIBES
-    BaseDeDatos_Clientes();
+	// LLAMO A LA FUNCION PARA AGREGAR A TODOS LOS USUARIOS
+    cargar_clientes();
+    fflush(stdin);
 	
-	//	LLAMO A LA FUNCION PARA AGREGAR LOS PRODUCTOS
-	BaseDeDatos_Productos();
-	
-    while (!colaClientes.empty())
-	{
-        Clientes cliente = colaClientes.front();
-        colaClientes.pop();
-    }
-    system("pause");
-}
-
-/*		FUNCION MENU PARA EL MENU			*/
-void menu(int& eleccion)
-{
-    cout << "\tMENU PRINCIPAL: \n";
-    cout << "1.-\tIniciar simulacion." 	<< endl;
-    cout << "2.-\tCreditos." 			<< endl;
-    cout << "3.-\tOtros." 				<< endl;
-    cout << "4.-\tSalir." 				<< endl;
-    cout << "\n-\tDigite su opcion: ";
-    cin >> eleccion;
-}
-
-/*		FUNCION PARA LOS CREDITOS		*/
-void Creditos(){
-    cout << "\n\nCreadores: "<<endl;
-    cout << "Francisco 			CI: V-31.770.825" << endl;
-    cout << "Manuel Pastrano 	CI: V-28.534.779" << endl;
-    cout << "Carlos Hernandez 	CI: V-31.074.002" << endl;
-    cout << "Andres Gomez 		CI: V-31.577.117" << endl;
-    cout << "Ernesto Balbás 	CI: V-30.932.082" << endl;
-
-    //cout << "\nPresiona cualquier tecla para salir. ";
-    system("pause");
-}
-
-void Otros()
-{
-	int opcion;
-	cout << "\n";
-	cout << "1.-\tMostrar Productos cargados." << endl;
-	cout << "2.-\tMostrar Clientes en el mercado." << endl;
-	cout << "\n\tDigite una opcion: "; cin >> opcion;
-	
-	switch(opcion)
-	{
-		//	MOSTRAR PRODUCTOS CARGADOS
-		case 1:BaseDeDatos_Productos(); break;
-		
-		//	MOSTRAR LOS CLIENTES EN LA BASE DE DATOS
-		case 2: mostrarClientes(); break;
-		
-		// OPCION INVALIDA
-		default: cout << "\nOpcion invalida";
-	}
-	system("pause");
-}
-
-//		FUNCION PARA TIEMPOS ENTRE COMPRAS
-void esperando_compra(int tiempo)
-{	
-	for(int i= 0; i<50; i ++){
-		cout<<" ";
-	}
-	cout<<"Comprando..."<<endl;
-	
-	for(int i= 0; i<30; i ++){
-		cout<<" ";
-	}	
-	for(int i=0; i<tiempo; i++)
-	{
-		cout<<"------";
-		Sleep(1000);
-	}
-	cout<<"\n\n";
-	system("cls");
-}
-
-
-/*					BASES DE DATOS									*/
-
-//				MOSTRAR LA BASE DE DATOS DE LOS CLIENTES
-void BaseDeDatos_Clientes()
-{
-	string inputString;
-	//	LLAMO A LA FUNCION PARA AGREGAR LOS TIEMPOS A CADA CLIENTE
-	GenerarTiempoDeCompra();
-
-	
-	/*		CARGAR CLIENTES				*/
-	cargar_clientes();
-	fflush(stdin);
-	
-	
-	/*		CARGAR PRODUCTOS			*/
+	// LLAMO A LA FUNCION PARA AGREGAR A TODOS LOS PRODUCTOS
 	cargar_productos();
     fflush(stdin);
 	
@@ -292,7 +201,6 @@ void BaseDeDatos_Clientes()
 	
 	//	MOSTRAMOS LOS DATOS DEL CLIENTE
 	system("cls");
-    cout << "\nBase de datos de los clientes:\n"<<endl;
     for (int i=0; i<11; i++)
 	{
 		if(clientes[i].tiempo_de_compra < 10 && clientes[i].dinero_disponible > clientes[i].PagoT)
@@ -332,11 +240,91 @@ void BaseDeDatos_Clientes()
 	cout << "\nCantidad de Clientes que superaron el tiempo limite: " 	<< tiempo_excedido << endl;
 	cout << "\n\tCantidad de Clientes que compraron exitosamente: " 	<< compradores << endl;
 	cout << "\n\tCantidad de Clientes que se presentaron a comprar: " 	<< clientes_presentes << endl;
-	cout << "\n\tTotal de ventas: $"									<<totalVenta<<endl;	
-}	
+	cout << "\n\tTotal de ventas: $"									<< totalVenta<<endl;
 	
-//	FUNCION PARA CARGAR LOS PRODUCTOS DESDE EL .TXT
-void BaseDeDatos_Productos()
+    while (!colaClientes.empty())
+	{
+        Clientes cliente = colaClientes.front();
+        colaClientes.pop();
+    }
+    system("pause");
+}
+
+//		FUNCION PARA TIEMPOS ENTRE COMPRAS
+void esperando_compra(int tiempo)
+{	
+	for(int i= 0; i<50; i ++){
+		cout<<" ";
+	}
+	cout<<"Comprando..."<<endl;
+	
+	for(int i= 0; i<30; i ++){
+		cout<<" ";
+	}	
+	for(int i=0; i<tiempo; i++)
+	{
+		cout<<"------";
+		Sleep(1000);
+	}
+	cout<<"\n\n";
+	system("cls");
+}
+
+/*				MENUS						*/
+
+/*			MENU PRINCIPAL					*/
+void menu(int& eleccion)
+{
+    cout << "\tMENU PRINCIPAL: \n";
+    cout << "1.-\tIniciar simulacion." 	<< endl;
+    cout << "2.-\tCreditos." 			<< endl;
+    cout << "3.-\tOtros." 				<< endl;
+    cout << "4.-\tSalir." 				<< endl;
+    cout << "\n-\tDigite su opcion: ";
+    cin >> eleccion;
+}
+
+/*		MENU OPCION (CREDITOS)				*/
+void Creditos(){
+    cout << "\n\nCreadores: "<<endl;
+    cout << "Francisco 			CI: V-31.770.825" << endl;
+    cout << "Manuel Pastrano 	CI: V-28.534.779" << endl;
+    cout << "Carlos Hernandez 	CI: V-31.074.002" << endl;
+    cout << "Andres Gomez 		CI: V-31.577.117" << endl;
+    cout << "Ernesto Balbás 	CI: V-30.932.082" << endl;
+
+    //cout << "\nPresiona cualquier tecla para salir. ";
+    system("pause");
+}
+
+/*		MENU OPCION (OTROS)					*/
+void Otros()
+{
+	int opcion;
+	cout << "\n";
+	cout << "1.-\tMostrar Productos cargados." << endl;
+	cout << "2.-\tMostrar Clientes en el mercado." << endl;
+	cout << "\n\tDigite una opcion: "; cin >> opcion;
+	
+	switch(opcion)
+	{
+		//	MOSTRAR PRODUCTOS CARGADOS
+		case 1:mostrar_Productos(); break;
+		
+		//	MOSTRAR LOS CLIENTES EN LA BASE DE DATOS
+		case 2:mostrar_Clientes(); break;
+		
+		// OPCION INVALIDA
+		default: cout << "\nOpcion invalida";
+	}
+	system("pause");
+}
+
+
+/*					BASES DE DATOS									*/	
+	
+// FUNCION PARA MOSTRAR PRODUCTOS EN OPCION (OTROS)
+void mostrar_Productos()
 {
 	cargar_productos();
 	
@@ -352,11 +340,12 @@ void BaseDeDatos_Productos()
     fflush(stdin);
 }
 
-//MOSTRAR CLIENTES EN OPCION (OTROS)
-void mostrarClientes()
+// FUNCION PARA MOSTRAR CLIENTES EN OPCION (OTROS)
+void mostrar_Clientes()
 {
-	cargar_clientes();
-	for (int i = 0; i<10; i++){
+	GenerarTiempoDeCompra();
+	cargar_clientes();	
+	for (int i = 1; i<10; i++){
 			cout << "\n";																				//ESPACIO ENTRE DATOS DE CADA CLIENTE
 	        cout << "Nombre: " 					<< clientes[i].nombre << endl;							//NOMBRE DEL CLIENTE
 	        cout << "Cedula de identidad: V-" 	<< clientes[i].cv << endl;								//CEDULA DEL CLIENTE
@@ -367,6 +356,7 @@ void mostrarClientes()
 	}
 }
 
+// FUNCION PARA CARGAR CLIENTES
 void cargar_clientes()
 {
 	/*		CARGAR CLIENTES		*/
@@ -389,6 +379,7 @@ void cargar_clientes()
 	}	
 }
 
+// FUNCION PARA CARGAR PRODUCTOS
 void cargar_productos()
 {
 	/*		CARGAR PRODUCTOS			*/
