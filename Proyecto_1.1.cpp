@@ -299,7 +299,7 @@ void Creditos(){
     cout << "\n\nCreadores: "<<endl;
     cout << "Francisco 			CI: V-31.770.825" << endl;
     cout << "Manuel Pastrano 	CI: V-28.534.779" << endl;
-    cout << "Carlos Hernandez 	CI: V-31.074.002" << endl;
+    cout << "Carlos Hernandez 	CI: V-27.975.753" << endl;
     cout << "Andres Gomez 		CI: V-31.577.117" << endl;
     cout << "Ernesto Balbás 	CI: V-30.932.082" << endl;
 
