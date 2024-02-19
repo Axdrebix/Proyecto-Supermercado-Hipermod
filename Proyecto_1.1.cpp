@@ -43,7 +43,10 @@ int compradores =0;								//Clientes que excedieron el tiempo y no les alcanso 
 int tiempo_excedido = 0;										//Agrega a los clientes que excedieron el tiempo
 int espaciado;
 float totalVenta =0;
+
 //	PROTOTIPOS DE FUNCIONES
+void cargar_productos();										//Cargar productos al programa
+void cargar_clientes();											//Cargar clientes al programa
 void mostrar_nombre_supermercado();								//Muestra el Nombre del Supermercado
 void encolar(const Clientes& cliente);							//Agrega a los clientes en un cola
 void BaseDeDatos_Clientes();									//Muestra la base de datos de todoslos compradores cargados
@@ -252,49 +255,18 @@ void esperando_compra(int tiempo)
 void BaseDeDatos_Clientes()
 {
 	string inputString;
-	
-	
 	//	LLAMO A LA FUNCION PARA AGREGAR LOS TIEMPOS A CADA CLIENTE
 	GenerarTiempoDeCompra();
-	//LLAMO A LA FUNCION PARA AGREGAR LOS PRODUCTOS
+
+	
+	/*		CARGAR CLIENTES				*/
+	cargar_clientes();
+	fflush(stdin);
+	
 	
 	/*		CARGAR PRODUCTOS			*/
-	ifstream archivo("productos.txt");
-	
-    if (archivo.is_open())
-	{
-        //	ITERADOR PARA AGREGAR PRODUCTOS DESDE EL ARCHIVO A LA ESTRUCTURA PRODUCTOS
-        int i = 0;
-        while (i < 19 && archivo >> productos[i].id >> productos[i].descripcion >> productos[i].precio >> productos[i].stock)
-		{
-            i++;
-        }
-        archivo.close();
-    }
-    	//	EN CASO DE QUE EL ARCHIVO NO SE ECUENTRE EN LA MISMA CARPETA DEL PROGRAMA
-	else
-	{
-        cout << "No se pudo abrir el archivo." << endl;
-    }
-	
-	/*		CARGAR CLIENTES		*/
-	ifstream file("clientes.txt");
-    if (file.is_open())
-	{
-		//	ITERADOR PARA AGREGAR CLIENTES DESDE EL ARCHIVO A LA ESTRUCTURA CLIENTES
-		int i = 1;
-        while (i < 11 && file >> clientes[i].nombre >> clientes[i].cv >> clientes[i].dinero_disponible)
-		{
-            i++;
-        }
-        file.close();
-	}
-		//	EN CASO DE QUE EL ARCHIVO NO SE ECUENTRE EN LA MISMA CARPETA DEL PROGRAMA
-	else
-	{
-        cout << "No se pudo abrir el archivo." << endl;
-	}
-	fflush(stdin);
+	cargar_productos();
+    fflush(stdin);
 	
 	
 	int j,k; //	J = PRODUCTO RANDOM, K = NUMERO DE ARTICULOS A AGREGAR AL CARRITO
@@ -313,6 +285,7 @@ void BaseDeDatos_Clientes()
 		}
 	}
 	fflush(stdin);
+	
 	//	MOSTRAMOS LOS DATOS DEL CLIENTE
     cout << "\nBase de datos de los clientes:\n"<<endl;
     for (int i=0; i<11; i++)
@@ -349,6 +322,7 @@ void BaseDeDatos_Clientes()
 			fflush(stdin);
 		}	
 	}
+	
 	//	MUESTRA LA CANTIDAD QUE EXCEDIO EL TIEMPO DE COMPRA
 	cout << "\nCantidad de Clientes que superaron el tiempo limite: " << tiempo_excedido << endl;
 	cout << "\n\tCantidad de Clientes que compraron exitosamente: " << compradores << endl;
@@ -359,24 +333,8 @@ void BaseDeDatos_Clientes()
 //	FUNCION PARA CARGAR LOS PRODUCTOS DESDE EL .TXT
 void BaseDeDatos_Productos()
 {
-	/*		CARGAR PRODUCTOS			*/
-	ifstream archivo("productos.txt");
+	cargar_productos();
 	
-    if (archivo.is_open())
-	{
-        //	ITERADOR PARA AGREGAR PRODUCTOS DESDE EL ARCHIVO A LA ESTRUCTURA PRODUCTOS
-        int i = 0;
-        while (i < 9 && archivo >> productos[i].id >> productos[i].descripcion >> productos[i].precio >> productos[i].stock)
-		{
-            i++;
-        }
-        archivo.close();
-    }
-    	//	EN CASO DE QUE EL ARCHIVO NO SE ECUENTRE EN LA MISMA CARPETA DEL PROGRAMA
-	else
-	{
-        cout << "No se pudo abrir el archivo." << endl;
-    }
     cout << "\n";
 	for(int i=0; i<9; i++)
 	{
@@ -388,7 +346,10 @@ void BaseDeDatos_Productos()
     fflush(stdin);
 }
 
-void mostrarClientes(){
+//MOSTRAR CLIENTES EN OPCION (OTROS)
+void mostrarClientes()
+{
+	cargar_clientes();
 	for (int i = 0; i<10; i++){
 			cout << "\n";																	//ESPACIO ENTRE DATOS DE CADA CLIENTE
 	        cout << "Nombre: " << clientes[i].nombre << endl;								//NOMBRE DEL CLIENTE
@@ -396,6 +357,51 @@ void mostrarClientes(){
 	        cout << "Dinero disponible: $" << clientes[i].dinero_disponible << endl;		//DINERO DEL CLIENTE
 	        cout << "Total a pagar: " << clientes[i].PagoT << endl;							//PAGO TOTAL A REALIZAR
 	        cout << "Tiempo de compra: " << clientes[i].tiempo_de_compra << " min" << endl;	//MUESTRA EL TIEMPO TOTAL DE COMPRA
-	        cout << "Tiempo de llegada: " << clientes[i].tiempo_de_llegada << endl;			//TIEMPO DE LLEGAR AL MERCADO
+	        cout << "Tiempo de llegada: " << clientes[i].tiempo_de_llegada << " min" << endl;			//TIEMPO DE LLEGAR AL MERCADO
 	}
+}
+
+void cargar_clientes()
+{
+	/*		CARGAR CLIENTES		*/
+	ifstream file("clientes.txt");
+    if (file.is_open())
+	{
+		//	ITERADOR PARA AGREGAR CLIENTES DESDE EL ARCHIVO A LA ESTRUCTURA CLIENTES
+		int i = 1;
+        while (i < 11 && file >> clientes[i].nombre >> clientes[i].cv >> clientes[i].dinero_disponible)
+		{
+            i++;
+            fflush(stdin);
+        }
+        file.close();
+	}
+		//	EN CASO DE QUE EL ARCHIVO NO SE ECUENTRE EN LA MISMA CARPETA DEL PROGRAMA
+	else
+	{
+        cout << "No se pudo abrir el archivo." << endl;
+	}	
+}
+
+void cargar_productos()
+{
+	/*		CARGAR PRODUCTOS			*/
+	ifstream archivo("productos.txt");
+	
+    if (archivo.is_open())
+	{
+        //	ITERADOR PARA AGREGAR PRODUCTOS DESDE EL ARCHIVO A LA ESTRUCTURA PRODUCTOS
+        int i = 0;
+        while (i < 19 && archivo >> productos[i].id >> productos[i].descripcion >> productos[i].precio >> productos[i].stock)
+		{
+            i++;
+            fflush(stdin);
+        }
+        archivo.close();
+    }
+    	//	EN CASO DE QUE EL ARCHIVO NO SE ECUENTRE EN LA MISMA CARPETA DEL PROGRAMA
+	else
+	{
+        cout << "No se pudo abrir el archivo." << endl;
+    }
 }
