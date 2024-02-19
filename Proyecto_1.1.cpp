@@ -165,9 +165,9 @@ void iniciarSimulacion()
 
 	//	PARA QUE EL USUARIO INGRESE AL SISTEMA
 	fflush(stdin);
-	cout << "\nNombre y apellido: ";	cin.getline(clientes[0].nombre,40,'\n');	//	SU NOMBRE
+	cout << "\nNombre y apellido: ";			cin.getline(clientes[0].nombre,40,'\n');	//	SU NOMBRE
 	cout << "\nCedula de identidad: V-";		cin>>clientes[0].cv;						//	SU CEDULA DE IDENTIDAD
-	cout << "\nSaldo disponible: $"; cin>>clientes[0].dinero_disponible;	//	SU DINERO DISPONIBLe
+	cout << "\nSaldo disponible: $"; 			cin>>clientes[0].dinero_disponible;			//	SU DINERO DISPONIBLe
 	
 	// LLAMO A LA FUNCION PARA AGREGAR A TODOS LOS PIBES
     BaseDeDatos_Clientes();
@@ -187,10 +187,10 @@ void iniciarSimulacion()
 void menu(int& eleccion)
 {
     cout << "\tMENU PRINCIPAL: \n";
-    cout << "1.-\tIniciar simulacion." << endl;
-    cout << "2.-\tCreditos." << endl;
-    cout << "3.-\tOtros." << endl;
-    cout << "4.-\tSalir." << endl;
+    cout << "1.-\tIniciar simulacion." 	<< endl;
+    cout << "2.-\tCreditos." 			<< endl;
+    cout << "3.-\tOtros." 				<< endl;
+    cout << "4.-\tSalir." 				<< endl;
     cout << "\n-\tDigite su opcion: ";
     cin >> eleccion;
 }
@@ -198,11 +198,11 @@ void menu(int& eleccion)
 /*		FUNCION PARA LOS CREDITOS		*/
 void Creditos(){
     cout << "\n\nCreadores: "<<endl;
-    cout << "Omar Castellano 	CI: V-31.770.825" << endl;
+    cout << "Francisco 			CI: V-31.770.825" << endl;
     cout << "Manuel Pastrano 	CI: V-28.534.779" << endl;
-    cout << "Julio Suarez 		CI: V-31.074.002" << endl;
-    cout << "Juan Mora 		CI: V-31.577.117" << endl;
-    cout << "Armando Serra 		CI: V-31.839.664" << endl;
+    cout << "Carlos Hernandez 	CI: V-31.074.002" << endl;
+    cout << "Andres Gomez 		CI: V-31.577.117" << endl;
+    cout << "Ernesto Balbás 	CI: V-30.932.082" << endl;
 
     //cout << "\nPresiona cualquier tecla para salir. ";
     system("pause");
@@ -223,6 +223,8 @@ void Otros()
 		
 		//	MOSTRAR LOS CLIENTES EN LA BASE DE DATOS
 		case 2: mostrarClientes(); break;
+		
+		// OPCION INVALIDA
 		default: cout << "\nOpcion invalida";
 	}
 	system("pause");
@@ -236,7 +238,7 @@ void esperando_compra(int tiempo)
 	}
 	cout<<"Comprando..."<<endl;
 	
-	for(int i= 0; i<35; i ++){
+	for(int i= 0; i<30; i ++){
 		cout<<" ";
 	}	
 	for(int i=0; i<tiempo; i++)
@@ -277,7 +279,7 @@ void BaseDeDatos_Clientes()
 		for(int i = 0; i < k; i++)	//	i = VARIABLE DE ITERACION HASTA LLEGAR AL NUMERO K
 		{
 			k = rand() % 30 + 1;	//	GENERA UN NUMERO RANDOM PARA LA CANTIDAD DE PRODUCTOS A ALMACENAR
-		    j = rand() % 9 + 0;	//	GENERA UN NUMERO RANDOM PARA EL PRODUCTO A ESCOGER
+		    j = rand() % 9 + 0;		//	GENERA UN NUMERO RANDOM PARA EL PRODUCTO A ESCOGER
 		    productos[j].stock -1;	//	ELIMINAMOS -1 AL STOCK DE DICHO ARTICULO SELECCIONADO
 		    clientes[m].Carrito.push(productos[j].descripcion);
 			clientes[m].PagoT += productos[j].precio;
@@ -292,11 +294,11 @@ void BaseDeDatos_Clientes()
 	{
 		if(clientes[i].tiempo_de_compra <= 10 && clientes[i].dinero_disponible >= clientes[i].PagoT)
 		{
-			cout << "\n";																	//ESPACIO ENTRE DATOS DE CADA CLIENTE
-	        cout << "Nombre: " << clientes[i].nombre << endl;								//NOMBRE DEL CLIENTE
-	        cout << "Cedula de identidad: V-" << clientes[i].cv << endl;					//CEDULA DEL CLIENTE
-	        cout << "Total a pagar: " << clientes[i].PagoT << endl;							//PAGO TOTAL A REALIZAR
-	        cout << "Tiempo de compra: " << clientes[i].tiempo_de_compra << " min" << endl;	//MUESTRA EL TIEMPO TOTAL DE COMPRA
+			cout << "\n";																			//ESPACIO ENTRE DATOS DE CADA CLIENTE
+	        cout << "Nombre: " 					<< clientes[i].nombre 			<< endl;			//NOMBRE DEL CLIENTE
+	        cout << "Cedula de identidad: V-" 	<< clientes[i].cv 				<< endl;			//CEDULA DEL CLIENTE
+	        cout << "Total a pagar: " 			<< clientes[i].PagoT 			<< endl;			//PAGO TOTAL A REALIZAR
+	        cout << "Tiempo de compra: " 		<< clientes[i].tiempo_de_compra << " min" << endl;	//MUESTRA EL TIEMPO TOTAL DE COMPRA
 	        
 	        for(int l = 1;!clientes[i].Carrito.empty();l++)
 			{
@@ -324,10 +326,10 @@ void BaseDeDatos_Clientes()
 	}
 	
 	//	MUESTRA LA CANTIDAD QUE EXCEDIO EL TIEMPO DE COMPRA
-	cout << "\nCantidad de Clientes que superaron el tiempo limite: " << tiempo_excedido << endl;
-	cout << "\n\tCantidad de Clientes que compraron exitosamente: " << compradores << endl;
-	cout << "\n\tCantidad de Clientes que se presentaron a comprar: " << clientes_presentes << endl;
-	cout<<"\n\tTotal de ventas: $"<<totalVenta<<endl;	
+	cout << "\nCantidad de Clientes que superaron el tiempo limite: " 	<< tiempo_excedido << endl;
+	cout << "\n\tCantidad de Clientes que compraron exitosamente: " 	<< compradores << endl;
+	cout << "\n\tCantidad de Clientes que se presentaron a comprar: " 	<< clientes_presentes << endl;
+	cout << "\n\tTotal de ventas: $"<<totalVenta<<endl;	
 }	
 	
 //	FUNCION PARA CARGAR LOS PRODUCTOS DESDE EL .TXT
@@ -338,8 +340,8 @@ void BaseDeDatos_Productos()
     cout << "\n";
 	for(int i=0; i<9; i++)
 	{
-	    cout<<".- "<<productos[i].descripcion;
-	    cout<<" $"<<productos[i].precio<<endl;
+	    cout<<".- "		<<productos[i].descripcion;
+	    cout<<" $"		<<productos[i].precio<<endl;
 	    cout<<" Stock: "<<productos[i].stock<<endl;
 	    cout<<"\n";
 	};
@@ -351,13 +353,13 @@ void mostrarClientes()
 {
 	cargar_clientes();
 	for (int i = 0; i<10; i++){
-			cout << "\n";																	//ESPACIO ENTRE DATOS DE CADA CLIENTE
-	        cout << "Nombre: " << clientes[i].nombre << endl;								//NOMBRE DEL CLIENTE
-	        cout << "Cedula de identidad: V-" << clientes[i].cv << endl;					//CEDULA DEL CLIENTE
-	        cout << "Dinero disponible: $" << clientes[i].dinero_disponible << endl;		//DINERO DEL CLIENTE
-	        cout << "Total a pagar: " << clientes[i].PagoT << endl;							//PAGO TOTAL A REALIZAR
-	        cout << "Tiempo de compra: " << clientes[i].tiempo_de_compra << " min" << endl;	//MUESTRA EL TIEMPO TOTAL DE COMPRA
-	        cout << "Tiempo de llegada: " << clientes[i].tiempo_de_llegada << " min" << endl;			//TIEMPO DE LLEGAR AL MERCADO
+			cout << "\n";																				//ESPACIO ENTRE DATOS DE CADA CLIENTE
+	        cout << "Nombre: " 					<< clientes[i].nombre << endl;							//NOMBRE DEL CLIENTE
+	        cout << "Cedula de identidad: V-" 	<< clientes[i].cv << endl;								//CEDULA DEL CLIENTE
+	        cout << "Dinero disponible: $"		<< clientes[i].dinero_disponible << endl;				//DINERO DEL CLIENTE
+	        cout << "Total a pagar: " 			<< clientes[i].PagoT << endl;							//PAGO TOTAL A REALIZAR
+	        cout << "Tiempo de compra: " 		<< clientes[i].tiempo_de_compra << " min" << endl;		//MUESTRA EL TIEMPO TOTAL DE COMPRA
+	        cout << "Tiempo de llegada: " 		<< clientes[i].tiempo_de_llegada << " min" << endl;		//TIEMPO DE LLEGAR AL MERCADO
 	}
 }
 
