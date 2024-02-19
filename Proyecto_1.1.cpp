@@ -31,7 +31,7 @@ struct Clientes
     stack<string> Carrito;
     int tiempo_de_compra = 0;
     int tiempo_de_llegada = 0;
-}clientes[11];
+}clientes[14];
 
 
 // DECLARACION DE LA COLA DE CLIENTES
@@ -74,6 +74,7 @@ int main()
             case 1: iniciarSimulacion(); 	break;	//OPCION 1 LLAMA A LA FUNCION INICIARSIMULACION
             case 2:	Creditos();				break;	//OPCION 2 MUESTRA LOS PARTICIPANTES DEL PROYECTO
             case 3: Otros();				break;	//MUESTRA OPCION DE BASES DE DATOS
+            case 4: exit;					break;	//CIERRA EL PROGRAMA
             default: cout << "\nOpcion invalida";
         }
         system("cls");
@@ -140,7 +141,7 @@ void mostrar_nombre_supermercado()
 void GenerarTiempoDeCompra()
 {
     srand(static_cast<unsigned int>(time(nullptr)));
-    for (int i = 0; i < 11; i++)
+    for (int i = 0; i < 14; i++)  
 	{
         clientes[i].tiempo_de_compra = rand() % 15 + 1;
         if(clientes[i].tiempo_de_compra > 10)
@@ -186,7 +187,7 @@ void iniciarSimulacion()
 	int j,k; 										//	J = PRODUCTO RANDOM, K = NUMERO DE ARTICULOS A AGREGAR AL CARRITO
 	srand(static_cast<unsigned int>(time(nullptr)));	//	DEFINO SRAND PARA CREAR UN NUMERO RANDOM
 	
-	for(int m=0;m<11;m++)
+	for(int m=0;m<14;m++)
 	{
 		for(int i = 0; i < k; i++)	//	i = VARIABLE DE ITERACION HASTA LLEGAR AL NUMERO K
 		{
@@ -202,9 +203,9 @@ void iniciarSimulacion()
 	
 	//	MOSTRAMOS LOS DATOS DEL CLIENTE
 	system("cls");
-    for (int i=0; i<11; i++)
+    for (int i=0; i<14; i++)
 	{
-		if(clientes[i].tiempo_de_compra < 10 && clientes[i].dinero_disponible > clientes[i].PagoT)
+		if(clientes[i].tiempo_de_compra < 14 && clientes[i].dinero_disponible > clientes[i].PagoT)
 		{
 			cout << "\n";																			//ESPACIO ENTRE DATOS DE CADA CLIENTE
 	        cout << "Nombre: " 					<< clientes[i].nombre 			<< endl;			//NOMBRE DEL CLIENTE
@@ -238,7 +239,8 @@ void iniciarSimulacion()
 	}
 	
 	//	MUESTRA LA CANTIDAD QUE EXCEDIO EL TIEMPO DE COMPRA
-	cout << "\nCantidad de Clientes que superaron el tiempo limite: " 	<< tiempo_excedido << endl;
+	cout << "\n" << endl;
+	cout << "\n\tCantidad de Clientes que superaron el tiempo limite: " 	<< tiempo_excedido << endl;
 	cout << "\n\tCantidad de Clientes que compraron exitosamente: " 	<< compradores << endl;
 	cout << "\n\tCantidad de Clientes que se presentaron a comprar: " 	<< clientes_presentes << endl;
 	cout << "\n\tTotal de ventas: $"									<< totalVenta<<endl;
@@ -346,7 +348,7 @@ void mostrar_Clientes()
 {
 	GenerarTiempoDeCompra();
 	cargar_clientes();	
-	for (int i = 1; i<10; i++){
+	for (int i = 1; i<14; i++){
 			cout << "\n";																				//ESPACIO ENTRE DATOS DE CADA CLIENTE
 	        cout << "Nombre: " 					<< clientes[i].nombre << endl;							//NOMBRE DEL CLIENTE
 	        cout << "Cedula de identidad: V-" 	<< clientes[i].cv << endl;								//CEDULA DEL CLIENTE
@@ -366,7 +368,7 @@ void cargar_clientes()
 	{
 		//	ITERADOR PARA AGREGAR CLIENTES DESDE EL ARCHIVO A LA ESTRUCTURA CLIENTES
 		int i = 1;
-        while (i < 11 && file >> clientes[i].nombre >> clientes[i].cv >> clientes[i].dinero_disponible)
+        while (i < 14 && file >> clientes[i].nombre >> clientes[i].cv >> clientes[i].dinero_disponible)
 		{
             i++;
             fflush(stdin);
