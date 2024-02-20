@@ -1,5 +1,5 @@
 # Proyecto-Supermercado-Hipermod
-Proyecto para tecnicas de programación 2
+Proyecto para tecnicas de programación 2.
 Enunciado:
 El nuevo supermercado HiperMod, nos ha solicitado la elaboración del software para la gestión y manejo de una
 nueva caja automatizada, donde los clientes podrán seleccionar el producto y automáticamente se le agregara a
