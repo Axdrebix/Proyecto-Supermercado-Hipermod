@@ -170,12 +170,6 @@ void iniciarSimulacion()
 	// LIMPIEZA DE PANTALLA
 	system("cls");
 	
-	//	PARA QUE EL USUARIO INGRESE AL SISTEMA
-	fflush(stdin);
-	cout << "\nNombre y apellido: ";			cin.getline(clientes[0].nombre,40,'\n');	//	SU NOMBRE
-	cout << "\nCedula de identidad: V-";		cin>>clientes[0].cv;						//	SU CEDULA DE IDENTIDAD
-	cout << "\nSaldo disponible: $"; 			cin>>clientes[0].dinero_disponible;			//	SU DINERO DISPONIBLe
-	
 	//	LLAMO A LA FUNCION PARA AGREGAR LOS TIEMPOS A CADA CLIENTE
 	Generar_Tiempos();
 	fflush(stdin);
@@ -198,7 +192,7 @@ void iniciarSimulacion()
 		{
 			k = rand() % 30 + 1;	//	GENERA UN NUMERO RANDOM PARA LA CANTIDAD DE PRODUCTOS A ALMACENAR
 		    j = rand() % 9 + 0;		//	GENERA UN NUMERO RANDOM PARA EL PRODUCTO A ESCOGER
-		    productos[j].stock -1;	//	ELIMINAMOS -1 AL STOCK DE DICHO ARTICULO SELECCIONADO
+		    productos[j].stock --;	//	ELIMINAMOS -1 AL STOCK DE DICHO ARTICULO SELECCIONADO
 		    clientes[m].Carrito.push(productos[j].descripcion);
 			clientes[m].PagoT += productos[j].precio;
 			fflush(stdin);
@@ -210,7 +204,7 @@ void iniciarSimulacion()
 	system("cls");
     for (int i=0; i<14; i++)
 	{
-		if(clientes[i].tiempo_de_compra <= 10 && clientes[i].dinero_disponible >= clientes[i].PagoT)
+		if(clientes[i].tiempo_de_compra < 11 && clientes[i].dinero_disponible > clientes[i].PagoT)
 		{
 			cout << "\n";																				//ESPACIO ENTRE DATOS DE CADA CLIENTE
 	        cout << "Nombre: " 					<< clientes[i].nombre 				<< endl;			//NOMBRE DEL CLIENTE
@@ -222,7 +216,7 @@ void iniciarSimulacion()
 	        
 	        for(int l = 1;!clientes[i].Carrito.empty();l++)
 			{
-			    cout <<l<<" "<< clientes[i].Carrito.top() << endl;
+			    cout <<".- "<< clientes[i].Carrito.top() << endl;
 			    clientes[i].Carrito.pop();
 		    }
 		    totalVenta += clientes[i].PagoT;
@@ -247,7 +241,7 @@ void iniciarSimulacion()
 	
 	//	MUESTRA LA CANTIDAD QUE EXCEDIO EL TIEMPO DE COMPRA
 	cout << "\n" << endl;
-	cout << "\n\tCantidad de Clientes que superaron el tiempo limite: " 	<< tiempo_excedido << endl;
+	cout << "\n\tCantidad de Clientes que superaron el tiempo limite: " << tiempo_excedido << endl;
 	cout << "\n\tCantidad de Clientes que compraron exitosamente: " 	<< compradores << endl;
 	cout << "\n\tCantidad de Clientes que se presentaron a comprar: " 	<< clientes_presentes << endl;
 	cout << "\n\tTotal de ventas: $"									<< totalVenta<<endl;
@@ -297,11 +291,11 @@ void menu(int& eleccion)
 /*		MENU OPCION (CREDITOS)				*/
 void Creditos(){
     cout << "\n\nCreadores: "<<endl;
-    cout << "Francisco Fonseca  CI: V-26.359.537" << endl;
-    cout << "Manuel Pastrano    CI: V-28.534.779" << endl;
-    cout << "Carlos Hernandez   CI: V-27.975.753" << endl;
-    cout << "Andres Gomez       CI: V-31.577.117" << endl;
-    cout << "Ernesto Balbas     CI: V-30.932.082" << endl;
+    cout << "Francisco 			CI: V-31.770.825" << endl;
+    cout << "Manuel Pastrano 	CI: V-28.534.779" << endl;
+    cout << "Carlos Hernandez 	CI: V-31.074.002" << endl;
+    cout << "Andres Gomez 		CI: V-31.577.117" << endl;
+    cout << "Ernesto Balbás 	CI: V-30.932.082" << endl;
 
     //cout << "\nPresiona cualquier tecla para salir. ";
     system("pause");
@@ -355,7 +349,7 @@ void mostrar_Clientes()
 {
 	Generar_Tiempos();
 	cargar_clientes();	
-	for (int i = 1; i<14; i++){
+	for (int i = 0; i<14; i++){
 			cout << "\n";																				//ESPACIO ENTRE DATOS DE CADA CLIENTE
 	        cout << "Nombre: " 					<< clientes[i].nombre << endl;							//NOMBRE DEL CLIENTE
 	        cout << "Cedula de identidad: V-" 	<< clientes[i].cv << endl;								//CEDULA DEL CLIENTE
@@ -374,7 +368,7 @@ void cargar_clientes()
     if (file.is_open())
 	{
 		//	ITERADOR PARA AGREGAR CLIENTES DESDE EL ARCHIVO A LA ESTRUCTURA CLIENTES
-		int i = 1;
+		int i = 0;
         while (i < 14 && file >> clientes[i].nombre >> clientes[i].cv >> clientes[i].dinero_disponible)
 		{
             i++;
