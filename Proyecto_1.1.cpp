@@ -26,6 +26,7 @@ struct Clientes
 {
     char nombre[40];
     int cv;
+    int Nmr;
     float dinero_disponible;
     double PagoT = 0;
     stack<string> Carrito;
@@ -209,6 +210,7 @@ void iniciarSimulacion()
 			cout << "\n";																				//ESPACIO ENTRE DATOS DE CADA CLIENTE
 	        cout << "Nombre: " 					<< clientes[i].nombre 				<< endl;			//NOMBRE DEL CLIENTE
 	        cout << "Cedula de identidad: V-" 	<< clientes[i].cv 					<< endl;			//CEDULA DEL CLIENTE
+	        cout << "Numero de Telefono: +58 " 	<< clientes[i].Nmr 					<< endl;			//CEDULA DEL CLIENTE
 	        cout << "Saldo disponible: " 		<< clientes[i].dinero_disponible 	<<"$"	  << endl;	//DINERO DEL CLIENTE
 	        cout << "Total a pagar: " 			<< clientes[i].PagoT 				<<"$"	  << endl;	//PAGO TOTAL A REALIZAR
 	        cout << "Tiempo de compra: " 		<< clientes[i].tiempo_de_compra 	<< " min" << endl;	//MUESTRA EL TIEMPO TOTAL DE COMPRA
@@ -347,12 +349,12 @@ void mostrar_Productos()
 // FUNCION PARA MOSTRAR CLIENTES EN OPCION (OTROS)
 void mostrar_Clientes()
 {
-	Generar_Tiempos();
 	cargar_clientes();	
 	for (int i = 0; i<14; i++){
 			cout << "\n";																				//ESPACIO ENTRE DATOS DE CADA CLIENTE
 	        cout << "Nombre: " 					<< clientes[i].nombre << endl;							//NOMBRE DEL CLIENTE
 	        cout << "Cedula de identidad: V-" 	<< clientes[i].cv << endl;								//CEDULA DEL CLIENTE
+	        cout << "Numero de Telefono: +58 " 	<< clientes[i].Nmr 					<< endl;			//CEDULA DEL CLIENTE
 	        cout << "Dinero disponible: $"		<< clientes[i].dinero_disponible << endl;				//DINERO DEL CLIENTE
 	        cout << "Total a pagar: " 			<< clientes[i].PagoT << endl;							//PAGO TOTAL A REALIZAR
 	        cout << "Tiempo de compra: " 		<< clientes[i].tiempo_de_compra << " min" << endl;		//MUESTRA EL TIEMPO TOTAL DE COMPRA
@@ -369,7 +371,7 @@ void cargar_clientes()
 	{
 		//	ITERADOR PARA AGREGAR CLIENTES DESDE EL ARCHIVO A LA ESTRUCTURA CLIENTES
 		int i = 0;
-        while (i < 14 && file >> clientes[i].nombre >> clientes[i].cv >> clientes[i].dinero_disponible)
+        while (i < 14 && file >> clientes[i].nombre >> clientes[i].cv >> clientes[i].Nmr >> clientes[i].dinero_disponible)
 		{
             i++;
             fflush(stdin);
