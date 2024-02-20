@@ -26,7 +26,7 @@ struct Clientes
 {
     char nombre[40];
     int cv;
-    int Nmr;
+    char Nmr[100];
     float dinero_disponible;
     double PagoT = 0;
     stack<string> Carrito;
@@ -356,9 +356,6 @@ void mostrar_Clientes()
 	        cout << "Cedula de identidad: V-" 	<< clientes[i].cv << endl;								//CEDULA DEL CLIENTE
 	        cout << "Numero de Telefono: +58 " 	<< clientes[i].Nmr 					<< endl;			//CEDULA DEL CLIENTE
 	        cout << "Dinero disponible: $"		<< clientes[i].dinero_disponible << endl;				//DINERO DEL CLIENTE
-	        cout << "Total a pagar: " 			<< clientes[i].PagoT << endl;							//PAGO TOTAL A REALIZAR
-	        cout << "Tiempo de compra: " 		<< clientes[i].tiempo_de_compra << " min" << endl;		//MUESTRA EL TIEMPO TOTAL DE COMPRA
-	        cout << "Tiempo de llegada: " 		<< clientes[i].tiempo_de_llegada << " min" << endl;		//TIEMPO DE LLEGAR AL MERCADO
 	}
 }
 
