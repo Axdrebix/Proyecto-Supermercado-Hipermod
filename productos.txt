@@ -1,49 +1,49 @@
 1
-Leche
+1.5lt_Leche_2.99$
 2.99
 5
 
 2
-Pan
+500g_Mantequilla_1.49$
 1.49
 10
 
 3
-Arroz
+1kg_Arroz_3.99$
 3.99
 20
 
 4
-Azucar
+500g_Azucar_1.79$
 1.79
 21
 
 5
-Pasta
+500g_Pasta_2.29$
 2.29
 21
 
 6
-Papas
+154g_Galletas_0.99$
 0.99
 19
 
 7
-Tomates
-1.99
+1kg_Sal_1.79$
+1.79
 8
 
 8
-Pollo
+1kg_Pollo_5.99$
 5.99
 5
 
 9
-Yogur
+180ml_Yogur_0.79$
 0.79
 15
 
 10
-Queso
+1kg_Queso_2.49$
 2.49
 20
