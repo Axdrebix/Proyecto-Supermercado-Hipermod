@@ -66,6 +66,7 @@ int main()
 	
 	//	ENCABEZADO
     mostrar_nombre_supermercado();
+    
 	// SELECCION DEL MENU
     do
     {
@@ -242,7 +243,6 @@ void iniciarSimulacion()
 	}
 	
 	//	MUESTRA LA CANTIDAD QUE EXCEDIO EL TIEMPO DE COMPRA
-	cout << "\n" << endl;
 	cout << "\n\tCantidad de Clientes que superaron el tiempo limite: " << tiempo_excedido << endl;
 	cout << "\n\tCantidad de Clientes que compraron exitosamente: " 	<< compradores << endl;
 	cout << "\n\tCantidad de Clientes que se presentaron a comprar: " 	<< clientes_presentes << endl;
@@ -291,7 +291,9 @@ void menu(int& eleccion)
 }
 
 /*		MENU OPCION (CREDITOS)				*/
-void Creditos(){
+void Creditos()
+{
+	system("cls");
     cout << "\n\nCreadores: "<<endl;
     cout << "Francisco Fonseca  CI: V-26.359.537" << endl;
     cout << "Manuel Pastrano    CI: V-28.534.779" << endl;
@@ -306,6 +308,7 @@ void Creditos(){
 /*		MENU OPCION (OTROS)					*/
 void Otros()
 {
+	system("cls");
 	int opcion;
 	cout << "\n";
 	cout << "1.-\tMostrar Productos cargados." << endl;
@@ -332,6 +335,7 @@ void Otros()
 // FUNCION PARA MOSTRAR PRODUCTOS EN OPCION (OTROS)
 void mostrar_Productos()
 {
+	system("cls");
 	cargar_productos();
 	
     cout << "\n";
@@ -349,6 +353,7 @@ void mostrar_Productos()
 // FUNCION PARA MOSTRAR CLIENTES EN OPCION (OTROS)
 void mostrar_Clientes()
 {
+	system("cls");
 	cargar_clientes();	
 	for (int i = 0; i<14; i++){
 			cout << "\n";																				//ESPACIO ENTRE DATOS DE CADA CLIENTE
