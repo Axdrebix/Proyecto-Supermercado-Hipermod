@@ -83,9 +83,9 @@ int main()
     }while(eleccion != 4);
     
 	for (int j = 0; j < 35; j++) //Centrando el texto
-		{
-            cout << " ";
-        }
+	{
+        cout << " ";
+    }
     cout << "Saliendo del programa, muchas gracias por visitarnos";
     getch();
     return 0;
@@ -247,6 +247,7 @@ void iniciarSimulacion()
 	cout << "\n\tCantidad de Clientes que compraron exitosamente: " 	<< compradores << endl;
 	cout << "\n\tCantidad de Clientes que se presentaron a comprar: " 	<< clientes_presentes << endl;
 	cout << "\n\tTotal de ventas: $"									<< totalVenta<<endl;
+	cout<<"\n";
 	
     while (!colaClientes.empty())
 	{
@@ -264,14 +265,18 @@ void esperando_compra(int tiempo)
 	}
 	cout<<"Comprando..."<<endl;
 	
-	for(int i= 0; i<30; i ++){
+	for(int i= 0; i<30; i ++)
+	{
 		cout<<" ";
 	}	
 	for(int i=0; i<tiempo; i++)
 	{
-		if (_kbhit()) {
+		if (_kbhit())
+		{
 			char ch = _getch();
-			if (ch == 'r' || ch == 'R') {
+			if (ch == 'r' || ch == 'R')
+			{
+				system("cls");
 				cout << "\nReiniciando el programa...\n";
 				main();
 			}
@@ -301,12 +306,13 @@ void menu(int& eleccion)
 void Creditos()
 {
 	system("cls");
-    cout << "\n\nCreadores: "<<endl;
+    cout << "\nCreadores: "<<endl;
     cout << "Francisco Fonseca  CI: V-26.359.537" << endl;
     cout << "Manuel Pastrano    CI: V-28.534.779" << endl;
     cout << "Carlos Hernandez   CI: V-27.975.753" << endl;
     cout << "Andres Gomez       CI: V-31.085.717" << endl;
     cout << "Ernesto Balbas     CI: V-30.932.082" << endl;
+    cout << "\n"								  << endl;
 
     //cout << "\nPresiona cualquier tecla para salir. ";
     system("pause");
@@ -362,7 +368,8 @@ void mostrar_Clientes()
 {
 	system("cls");
 	cargar_clientes();	
-	for (int i = 0; i<14; i++){
+	for (int i = 0; i<14; i++)
+	{
 			cout << "\n";																				//ESPACIO ENTRE DATOS DE CADA CLIENTE
 	        cout << "Nombre: " 					<< clientes[i].nombre << endl;							//NOMBRE DEL CLIENTE
 	        cout << "Cedula de identidad: V-" 	<< clientes[i].cv << endl;								//CEDULA DEL CLIENTE
