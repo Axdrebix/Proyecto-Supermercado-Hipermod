@@ -269,6 +269,13 @@ void esperando_compra(int tiempo)
 	}	
 	for(int i=0; i<tiempo; i++)
 	{
+		if (_kbhit()) {
+			char ch = _getch();
+			if (ch == 'r' || ch == 'R') {
+				cout << "\nReiniciando el programa...\n";
+				main();
+			}
+		}
 		cout<<"------";
 		Sleep(1000);
 	}
