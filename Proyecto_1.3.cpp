@@ -360,7 +360,7 @@ void Otros()
 	cout << "\n";
 	cout << "1.-\tMostrar Productos cargados." << endl;
 	cout << "2.-\tMostrar Clientes en el mercado." << endl;
-	cout << "3.-\tMostrar Ultimas 10 facturas." << endl;
+	cout << "3.-\tMostrar Ultimas facturas generadas." << endl;
 	cout << "\n\tDigite una opcion: "; cin >> opcion;
 	
 	switch(opcion)
