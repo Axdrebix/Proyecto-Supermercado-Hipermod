@@ -202,45 +202,62 @@ void iniciarSimulacion()
 	}
 	fflush(stdin);
 	
-	//	MOSTRAMOS LOS DATOS DEL CLIENTE
+	//	MOSTRAMOS LOS DATOS DEL CLIENTE 
 	system("cls");
-    for (int i=0; i<14; i++)
+	
+std::ofstream file; // CREAMOS UN OBJETO DE TIPO ofstream
+file.open("ultimas_facturas.txt", std::ios::out); // ABRIMOS EL ARCHIVO datos.txt EN MODO ESCRITURA PARA GUARDAR DATOS DE FACTURA
+
+for (int i=0; i<14; i++)
+{
+	if(clientes[i].tiempo_de_compra < 11 && clientes[i].dinero_disponible > clientes[i].PagoT)
 	{
-		if(clientes[i].tiempo_de_compra < 11 && clientes[i].dinero_disponible > clientes[i].PagoT)
+		cout << "\n";																				//ESPACIO ENTRE DATOS DE CADA CLIENTE
+        cout << "Nombre: " 					<< clientes[i].nombre 				<< endl;			//NOMBRE DEL CLIENTE
+        cout << "Cedula de identidad: V-" 	<< clientes[i].cv 					<< endl;			//CEDULA DEL CLIENTE
+        cout << "Numero de Telefono: +58-" 	<< clientes[i].Nmr 					<< endl;			//CEDULA DEL CLIENTE
+        cout << "Saldo disponible: " 		<< clientes[i].dinero_disponible 	<<"$"	  << endl;	//DINERO DEL CLIENTE
+        cout << "Total a pagar: " 			<< clientes[i].PagoT 				<<"$"	  << endl;	//PAGO TOTAL A REALIZAR
+        cout << "Tiempo de compra: " 		<< clientes[i].tiempo_de_compra 	<< " min" << endl;	//MUESTRA EL TIEMPO TOTAL DE COMPRA
+        cout << "Tiempo de llegada: " 		<< clientes[i].tiempo_de_llegada 	<< " min" << endl;	//MUESTRA EL TIEMPO TOTAL DE LLEGADA
+        
+        // AQUÍ ESCRIBIMOS LOS DATOS EN EL ARCHIVO
+        file << "\n";
+        file << "Nombre: " 					<< clientes[i].nombre 				<< "\n";
+        file << "Cedula de identidad: V-" 	<< clientes[i].cv 					<< "\n";
+        file << "Numero de Telefono: +58-" 	<< clientes[i].Nmr 					<< "\n";
+        file << "Saldo disponible: " 		<< clientes[i].dinero_disponible 	<<"$\n";
+        file << "Total a pagar: " 			<< clientes[i].PagoT 				<<"$\n";
+        file << "Tiempo de compra: " 		<< clientes[i].tiempo_de_compra 	<< " min\n";
+        file << "Tiempo de llegada: " 		<< clientes[i].tiempo_de_llegada 	<< " min\n";
+        
+        for(int l = 1;!clientes[i].Carrito.empty();l++)
 		{
-			cout << "\n";																				//ESPACIO ENTRE DATOS DE CADA CLIENTE
-	        cout << "Nombre: " 					<< clientes[i].nombre 				<< endl;			//NOMBRE DEL CLIENTE
-	        cout << "Cedula de identidad: V-" 	<< clientes[i].cv 					<< endl;			//CEDULA DEL CLIENTE
-	        cout << "Numero de Telefono: +58-" 	<< clientes[i].Nmr 					<< endl;			//CEDULA DEL CLIENTE
-	        cout << "Saldo disponible: " 		<< clientes[i].dinero_disponible 	<<"$"	  << endl;	//DINERO DEL CLIENTE
-	        cout << "Total a pagar: " 			<< clientes[i].PagoT 				<<"$"	  << endl;	//PAGO TOTAL A REALIZAR
-	        cout << "Tiempo de compra: " 		<< clientes[i].tiempo_de_compra 	<< " min" << endl;	//MUESTRA EL TIEMPO TOTAL DE COMPRA
-	        cout << "Tiempo de llegada: " 		<< clientes[i].tiempo_de_llegada 	<< " min" << endl;	//MUESTRA EL TIEMPO TOTAL DE LLEGADA
-	        
-	        for(int l = 1;!clientes[i].Carrito.empty();l++)
-			{
-			    cout <<".- "<< clientes[i].Carrito.top() << endl;
-			    clientes[i].Carrito.pop();
-		    }
-		    totalVenta += clientes[i].PagoT;
-	        compradores++;
-	        clientes_presentes++;		    
-		    esperando_compra(clientes[i].tiempo_de_compra);
-	        fflush(stdin);
+		    cout <<".- "<< clientes[i].Carrito.top() << endl;
+		    file <<".- "<< clientes[i].Carrito.top() << "\n"; // AQUÍ TAMBIÉN ESCRIBIMOS EN EL ARCHIVO
+		    clientes[i].Carrito.pop();
 	    }
-	    else
-	    {
-	        clientes_presentes++;	    	
-	    	cout << "\n";
-	    	cout << "El cliente "<<clientes[i].nombre 	<< endl;
-	    	cout << "\nHa excedido el tiempo de compra" << endl;
-	    	cout << "No tiene fondos suficientes" 		<< endl;
-	    	cout << "Ha salido de la cola" 				<< endl;
-	    	Sleep(3000);
-	    	system("cls");
-			fflush(stdin);
-		}	
+	    totalVenta += clientes[i].PagoT;
+        compradores++;
+        clientes_presentes++;		    
+	    esperando_compra(clientes[i].tiempo_de_compra);
+	    fflush(stdin);
 	}
+	else
+	{
+	    clientes_presentes++;	    	
+	    cout << "\n";
+	    cout << "El cliente "<<clientes[i].nombre 	<< endl;
+	    cout << "\nHa excedido el tiempo de compra" << endl;
+	    cout << "No tiene fondos suficientes" 		<< endl;
+	    cout << "Ha salido de la cola" 				<< endl;
+	    Sleep(3000);
+	    system("cls");
+		fflush(stdin);
+	}	
+}
+
+file.close(); // CERRAMOS EL ARCHIVO QUE GUARDO DATOS DE FACTURA
 	
 	//	MUESTRA LA CANTIDAD QUE EXCEDIO EL TIEMPO DE COMPRA
 	cout << "\n\tCantidad de Clientes que superaron el tiempo limite: " << tiempo_excedido << endl;
@@ -295,7 +312,7 @@ void menu(int& eleccion)
 {
     cout << "\tMENU PRINCIPAL: \n";
     cout << "1.-\tIniciar simulacion." 	<< endl;
-    cout << "2.-\tCreditos." 			<< endl;
+    cout << "2.-\tContribuyente." 			<< endl;
     cout << "3.-\tOtros." 				<< endl;
     cout << "4.-\tSalir." 				<< endl;
     cout << "\n-\tDigite su opcion: ";
@@ -306,7 +323,7 @@ void menu(int& eleccion)
 void Creditos()
 {
 	system("cls");
-    cout << "\nCreadores: "<<endl;
+    cout << "\nDesarrollado por: "<<endl;
     cout << "Francisco Fonseca  CI: V-26.359.537" << endl;
     cout << "Manuel Pastrano    CI: V-28.534.779" << endl;
     cout << "Carlos Hernandez   CI: V-27.975.753" << endl;
@@ -318,6 +335,23 @@ void Creditos()
     system("pause");
 }
 
+// FUNSION PARA MOSTRAR LAS ULTIMAS FACTURAS GENERADAS
+void leerFacturas() {
+	system("cls");
+    std::string linea;
+    std::ifstream archivo("ultimas_facturas.txt");
+
+    if (archivo.is_open()) {
+        while (getline(archivo, linea)) {
+            std::cout << linea << '\n';
+        }
+        archivo.close();
+    } else {
+        std::cout << "No se pudo abrir el archivo";
+    }
+}
+
+
 /*		MENU OPCION (OTROS)					*/
 void Otros()
 {
@@ -326,6 +360,7 @@ void Otros()
 	cout << "\n";
 	cout << "1.-\tMostrar Productos cargados." << endl;
 	cout << "2.-\tMostrar Clientes en el mercado." << endl;
+	cout << "3.-\tMostrar Ultimas 10 facturas." << endl;
 	cout << "\n\tDigite una opcion: "; cin >> opcion;
 	
 	switch(opcion)
@@ -336,7 +371,9 @@ void Otros()
 		//	MOSTRAR LOS CLIENTES EN LA BASE DE DATOS
 		case 2:mostrar_Clientes(); break;
 		
-		// OPCION INVALIDA
+		// LEER ULTIMAS FACTURAS
+        case 3: leerFacturas(); break;
+		
 		default: cout << "\nOpcion invalida";
 	}
 	system("pause");
@@ -424,3 +461,4 @@ void cargar_productos()
         cout << "No se pudo abrir el archivo." << endl;
     }
 }
+
