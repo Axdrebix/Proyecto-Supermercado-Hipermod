@@ -311,10 +311,10 @@ void esperando_compra(int tiempo)
 void menu(int& eleccion)
 {
     cout << "\tMENU PRINCIPAL: \n";
-    cout << "1.-\tIniciar simulacion." 	<< endl;
+    cout << "1.-\tIniciar simulacion." 		<< endl;
     cout << "2.-\tContribuyente." 			<< endl;
-    cout << "3.-\tOtros." 				<< endl;
-    cout << "4.-\tSalir." 				<< endl;
+    cout << "3.-\tOtros." 					<< endl;
+    cout << "4.-\tSalir." 					<< endl;
     cout << "\n-\tDigite su opcion: ";
     cin >> eleccion;
 }
@@ -347,7 +347,8 @@ void leerFacturas() {
         }
         archivo.close();
     } else {
-        std::cout << "No se pudo abrir el archivo";
+    	cout << "\n";
+        cout << "No se ha facturado ninguna compra" << endl;
     }
 }
 
@@ -461,4 +462,3 @@ void cargar_productos()
         cout << "No se pudo abrir el archivo." << endl;
     }
 }
-
