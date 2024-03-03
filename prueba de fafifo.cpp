@@ -379,6 +379,16 @@ void esperando_compra(int tiempo)
 			{
 				system("cls");
 				cout << "\nReiniciando el programa...\n";
+				//	MUESTRA REPORTE DE LA COMPRA 
+	cout << "=========================================================================" << endl;
+	cout << "\n\t-Cantidad de Clientes que superaron el tiempo limite: " << tiempo_excedido << endl;
+	cout << "\n\t-Cantidad de Clientes que compraron exitosamente: " 	<< compradores << endl;
+	cout << "\n\t-Cantidad de Clientes que se presentaron a comprar: " 	<< clientes_presentes << endl;
+	cout << "\n\t-Total de ventas: $"									<< totalVenta<<endl;
+	cout<<"\n";
+	cout << "=========================================================================" << endl;
+
+					Sleep(5000);
 				main();
 			}
 		}
