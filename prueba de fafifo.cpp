@@ -207,6 +207,7 @@ void iniciarSimulacion()
 	
 	//	MOSTRAMOS LOS DATOS DEL CLIENTE 
  std::ofstream file; // CREAMOS UN OBJETO DE TIPO ofstreamtd::ofstream file; // CREAMOS UN OBJETO DE TIPO ofstream
+ file.open("ultima_facturas.txt");	
 for (int i=0; i<14; i++)
 {
 if(clientes[i].tiempo_de_compra < 10)
