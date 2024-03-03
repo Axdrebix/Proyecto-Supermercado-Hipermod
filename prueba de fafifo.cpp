@@ -388,7 +388,7 @@ void esperando_compra(int tiempo)
 	cout<<"\n";
 	cout << "=========================================================================" << endl;
 
-					Sleep(5000);
+					Sleep(7000);
 				main();
 			}
 		}
