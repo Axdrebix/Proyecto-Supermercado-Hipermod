@@ -249,7 +249,28 @@ if(clientes[i].tiempo_de_compra < 10)
     for(int l = 1;!pilaDeProductos.empty();l++)
     {
         int cantidad = rand() % 5 + 1; // Genera un número aleatorio entre 1 y 10
-        double precio = (rand() % 1500 + 1) / 100.0; // Genera un precio aleatorio entre 0.01$ y 15.00$
+       //Busca el precio en el documento presio 
+       double precio = 0.0;
+std::ifstream archivo("precios.txt"); // Abre el archivo de precios
+std::string linea;
+
+while (std::getline(archivo, linea)) // Lee cada línea del archivo
+{
+    std::stringstream ss(linea);
+    std::string nombreProducto;
+    std::getline(ss, nombreProducto, '$'); // Obtiene el nombre del producto de la línea
+
+    if (nombreProducto.find(nombreDelProducto) != std::string::npos) // Si el nombre del producto coincide
+    {
+        std::string precioStr;
+        std::getline(ss, precioStr); // Obtiene el precio del producto
+        try {
+            precio = std::stod(precioStr); // Intenta convertir el precio a double
+        } catch (const std::invalid_argument& ia) {
+            std::cerr << "Error: precio invalido para el producto " << nombreProducto << ": " << precioStr << std::endl;
+        }
+    }
+}
         totalAPagar += cantidad * precio; // Calculamos el total a pagar
         cout << l << ". " << pilaDeProductos.top() << " - Cantidad: " << cantidad << "  ----> Precio: $" << precio << "\n";
         file << l << ". " << pilaDeProductos.top() << " - Cantidad: " << cantidad << "  ----> Precio: $" << precio << "\n"; // ESCRIBIMOS EN EL ARCHIVO
