@@ -11,6 +11,7 @@
 #include <cstring>
 #include <set>
 #include <map>
+#include <sstream>
 using namespace std;
 
 //	ESTRUCTURA DE LOS PRODUCTOS
