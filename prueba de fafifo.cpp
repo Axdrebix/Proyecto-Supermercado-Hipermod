@@ -148,7 +148,7 @@ void Generar_Tiempos()
     srand(static_cast<unsigned int>(time(nullptr)));
     for (int i = 0; i < 14; i++)  
 	{
-        clientes[i].tiempo_de_compra = rand() % 13 +1 ;
+        clientes[i].tiempo_de_compra = rand() % 13 + 1;
         if(clientes[i].tiempo_de_compra >= 10)
     	{
     		tiempo_excedido++;
@@ -158,7 +158,7 @@ void Generar_Tiempos()
     
     for (int i = 0; i < 14; i++)
     {
-    	clientes[i].tiempo_de_llegada = rand() % 6 + 1;
+    	clientes[i].tiempo_de_llegada = rand() % 20 + 1;
 	}
 }
 
@@ -188,7 +188,7 @@ void iniciarSimulacion()
     fflush(stdin);
 	
 	// AGREGAR PRODUCTOS A LOS CLIENTES
-	int j,k; 										//	J = PRODUCTO RANDOM, K = NUMERO DE ARTICULOS A AGREGAR AL CARRITO
+	int j,k; 											//	J = PRODUCTO RANDOM, K = NUMERO DE ARTICULOS A AGREGAR AL CARRITO
 	srand(static_cast<unsigned int>(time(nullptr)));	//	DEFINO SRAND PARA CREAR UN NUMERO RANDOM
 	
 	for(int m = 0;m < 14;m++)
@@ -207,7 +207,7 @@ void iniciarSimulacion()
 	
 	
 	//	MOSTRAMOS LOS DATOS DEL CLIENTE 
- std::ofstream file; // CREAMOS UN OBJETO DE TIPO ofstreamtd::ofstream file; // CREAMOS UN OBJETO DE TIPO ofstream
+ ofstream file; // CREAMOS UN OBJETO DE TIPO ofstreamtd::ofstream file; // CREAMOS UN OBJETO DE TIPO ofstream
  file.open("ultima_facturas.txt");	
 for (int i=0; i<14; i++)
 {
@@ -220,9 +220,9 @@ if(clientes[i].tiempo_de_compra < 10)
     cout << "FACTURA DE COMPRA\n"; // Título de la factura
     cout << "Fecha y hora: " << dt; // Fecha y hora actual
     cout << "----------------------------------------------------------------------------------------------------\n"; // Línea de separación
-    cout << "Nombre del cliente: " << clientes[i].nombre << "\n";
-    cout << "Cedula de identidad: V-" << clientes[i].cv << "\n";
-    cout << "Numero de Telefono: +58-" << clientes[i].Nmr << "\n";
+    cout << "Nombre del cliente: " 		<< clientes[i].nombre 	<< "\n";
+    cout << "Cedula de identidad: V-" 	<< clientes[i].cv 		<< "\n";
+    cout << "Numero de Telefono: +58-" 	<< clientes[i].Nmr 		<< "\n";
     cout << "----------------------------------------------------------------------------------------------------\n"; // Línea de separación
     cout << "PRODUCTOS COMPRADOS:\n"; // Título de los productos comprados
 
@@ -230,18 +230,18 @@ if(clientes[i].tiempo_de_compra < 10)
     file << "FACTURA DE COMPRA\n"; // Título de la factura
     file << "Fecha y hora: " << dt; // Fecha y hora actual
     file << "-----------------------------------------------------------------------------------------------------\n"; // Línea de separación
-    file << "Nombre del cliente: " << clientes[i].nombre << "\n";
-    file << "Cedula de identidad: V-" << clientes[i].cv << "\n";
-    file << "Numero de Telefono: +58-" << clientes[i].Nmr << "\n";
+    file << "Nombre del cliente: " 		<< clientes[i].nombre 	<< "\n";
+    file << "Cedula de identidad: V-" 	<< clientes[i].cv 		<< "\n";
+    file << "Numero de Telefono: +58-"	<< clientes[i].Nmr 		<< "\n";
     file << "-----------------------------------------------------------------------------------------------------\n"; // Línea de separación
     file << "PRODUCTOS COMPRADOS:\n"; // Título de los productos comprados
 
-    std::set<std::string> productosUnicos; // Para evitar la repetición de productos
-    std::stack<std::string> pilaDeProductos; // Pila de productos
+    set<string> productosUnicos; // Para evitar la repetición de productos
+    stack<string> pilaDeProductos; // Pila de productos
     double totalAPagar = 0; // Inicializamos el total a pagar
     while(!clientes[i].Carrito.empty())
     {
-        std::string producto = clientes[i].Carrito.top();
+        string producto = clientes[i].Carrito.top();
         if(productosUnicos.insert(producto).second) // Si el producto es único
         {
             pilaDeProductos.push(producto); // Agregamos el producto a la pila
@@ -307,15 +307,15 @@ else
 {
     clientes_presentes++;	    	
     cout << "\n";
-    cout << "==========================================" << endl;
-    cout << "Cliente: "<<clientes[i].nombre 	<< endl;
-    cout << "---------------------------------------" << endl;
-    cout << "Estado: - Ha excedido el tiempo de compra" << endl;
+    cout << "==========================================" 	<< endl;
+    cout << "Cliente: "<<clientes[i].nombre 				<< endl;
+    cout << "-------------------------------------------" 	<< endl;
+    cout << "Estado: - Ha excedido el tiempo de compra" 	<< endl;
     cout << "        - No tiene fondos suficientes" 		<< endl;
     cout << "        - Ha salido de la cola." 				<< endl;
-    cout << "-------------------------------------------" << endl;
-    cout <<          "Gracias por su visita!" << endl;
-    cout << "===========================================" << endl;
+    cout << "-------------------------------------------" 	<< endl;
+    cout <<          "Gracias por su visita!" 				<< endl;
+    cout << "===========================================" 	<< endl;
     Sleep(3000);
     system("cls");
     fflush(stdin);
