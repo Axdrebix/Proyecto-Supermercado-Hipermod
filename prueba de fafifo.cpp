@@ -1,7 +1,8 @@
-z#include <iostream>
+#include <iostream>
 #include <fstream>
 #include <conio.h>
 #include <string.h>
+#include <algorithm>
 #include <stdlib.h>
 #include <windows.h>
 #include <queue>
@@ -43,7 +44,7 @@ queue<Clientes> colaClientes;
 
 // DEFINICION GLOBAL DE VARIABLES
 int clientes_presentes= 0;
-int compradores = 0;											//Clientes que excedieron el tiempo y no les alcanzo el dinero
+int compradores = 0;											//Clientes que excedieron el tiempo y no les alcanso el dinero
 int tiempo_excedido = 0;										//Agrega a los clientes que excedieron el tiempo
 int espaciado;
 float totalVenta = 0;
@@ -100,14 +101,14 @@ void mostrar_nombre_supermercado()
 {
  char nombre[8][70] =
 {
-    {"   _    _  _                      ___  ___              _ "},
-    {"  | |  | || |                    |  \\/  |             | |"},
-    {"  | || || |  _ __     ___  _ __| .  . |  ___    __ _| |"},
-    {"  |  __  || | | '_ \\   / _ \\| '| |\\/| | / _ \\  / _` | |"},
-    {"  | |  | || | | |) | |  _/| |  | |  | || () || (| | |"},
-    {"  ||  |||| | ./   \\|||  \\|  |/ \\/  \\,||"},
-    {"              | |                                        "},
-    {"              |_|                                        "},
+    {"   _   _  _                    ___  ___            _ "},
+        {"  | | | |(_)                   |  \\/  |           | |"},
+        {"  | |_| | _  _ __    ___  _ __ | .  . |  ___    __| |"},
+        {"  |  _  || || '_ \\  / _ \\| '__|| |\\/| | / _ \\  / _` |"},
+        {"  | | | || || |_) ||  __/| |   | |  | || (_) || (_| |"},
+        {"  \\_| |_/|_|| .__/  \\___||_|   \\_|  |_/ \\___/  \\\\___|"},
+        {"            | |                                      "},
+        {"            |_|                                      "},
 };
 	
 	// CAMBIO DE COLOR DEL LOGO
@@ -178,6 +179,11 @@ void iniciarSimulacion()
 	//	LLAMO A LA FUNCION PARA AGREGAR LOS TIEMPOS A CADA CLIENTE
 	Generar_Tiempos();
 	fflush(stdin);
+	
+	//	ORDENAR CLIENTES POR TIEMPO DE LLEGADA
+	sort(clientes, clientes + 14, [](const Clientes& a, const Clientes& b) {
+        return a.tiempo_de_llegada < b.tiempo_de_llegada;
+    });
 	
 	// LLAMO A LA FUNCION PARA AGREGAR A TODOS LOS USUARIOS
     cargar_clientes();
