@@ -252,27 +252,8 @@ if(clientes[i].tiempo_de_compra < 10)
     {
         int cantidad = rand() % 5 + 1; // Genera un número aleatorio entre 1 y 10
        //Busca el precio en el documento presio 
-       double precio = 0.0;
-std::ifstream archivo("precios.txt"); // Abre el archivo de precios
-std::string linea;
+       double precio = 0.0; // EN MANTENIMIENTO xD
 
-while (std::getline(archivo, linea)) // Lee cada línea del archivo
-{
-    std::stringstream ss(linea);
-    std::string nombreProducto;
-    std::getline(ss, nombreProducto, '$'); // Obtiene el nombre del producto de la línea
-
-    if (nombreProducto.find(nombreDelProducto) != std::string::npos) // Si el nombre del producto coincide
-    {
-        std::string precioStr;
-        std::getline(ss, precioStr); // Obtiene el precio del producto
-        try {
-            precio = std::stod(precioStr); // Intenta convertir el precio a double
-        } catch (const std::invalid_argument& ia) {
-            std::cerr << "Error: precio invalido para el producto " << nombreProducto << ": " << precioStr << std::endl;
-        }
-    }
-}
         totalAPagar += cantidad * precio; // Calculamos el total a pagar
         cout << l << ". " << pilaDeProductos.top() << " - Cantidad: " << cantidad << "  ----> Precio: $" << precio << "\n";
         file << l << ". " << pilaDeProductos.top() << " - Cantidad: " << cantidad << "  ----> Precio: $" << precio << "\n"; // ESCRIBIMOS EN EL ARCHIVO
@@ -342,12 +323,47 @@ else
 }
 
 file.close(); // CERRAMOS EL ARCHIVO QUE GUARDO DATOS DE FACTURA
-	
+
+	// BUSCADOR DE 	PRODUCTO MAS COMPRADO
+	std::ifstream filee("ultima_facturas.txt");
+    std::string line;
+    std::map<std::string, int> product_counts;
+
+    if (filee.is_open()) {
+        while (getline(filee, line)) {
+            if (line.find("PRODUCTOS COMPRADOS:") != std::string::npos) {
+                while (getline(filee, line) && line != "----------------------------------------------------------------------------------------------------") {
+                    std::istringstream iss(line);
+                    std::string product;
+                    std::string temp;
+                    int quantity;
+
+                    iss >> temp; // Descartar el número de ítem
+                    getline(iss, product, '-'); // Leer hasta el guión
+                    iss >> temp; // Descartar "Cantidad:"
+                    iss >> quantity; // Leer el número
+
+                    product_counts[product] += quantity;
+                }
+            }
+        }
+        filee.close();
+    }
+
+    std::string max_product;
+    int max_count = 0;
+    for (const auto& pair : product_counts) {
+        if (pair.second > max_count) {
+            max_product = pair.first;
+            max_count = pair.second;
+        }
+    }
 	//	MUESTRA LA CANTIDAD QUE EXCEDIO EL TIEMPO DE COMPRA
 	cout << "=========================================================================" << endl;
 	cout << "\n\t-Cantidad de Clientes que superaron el tiempo limite: " << tiempo_excedido << endl;
 	cout << "\n\t-Cantidad de Clientes que compraron exitosamente: " 	<< compradores << endl;
 	cout << "\n\t-Cantidad de Clientes que se presentaron a comprar: " 	<< clientes_presentes << endl;
+	cout << "\n\t-El producto mas vendido : " << max_product << " , con una cantidad total: " << max_count <<endl;
 	cout << "\n\t-Total de ventas: $"									<< totalVenta<<endl;
 	cout<<"\n";
 	cout << "=========================================================================" << endl;
