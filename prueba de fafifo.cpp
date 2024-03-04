@@ -196,8 +196,8 @@ void iniciarSimulacion()
 		for(int i = 0; i < k; i++)	//	i = VARIABLE DE ITERACION HASTA LLEGAR AL NUMERO K
 		{
 			k = rand() % 30 + 1;	//	GENERA UN NUMERO RANDOM PARA LA CANTIDAD DE PRODUCTOS A ALMACENAR
-		    j = rand() % 9 + 0;		//	GENERA UN NUMERO RANDOM PARA EL PRODUCTO A ESCOGER
-		    productos[j].stock --;	//	ELIMINAMOS -1 AL STOCK DE DICHO ARTICULO SELECCIONADO
+		    j = rand() % 9 + 1;		//	GENERA UN NUMERO RANDOM PARA EL PRODUCTO A ESCOGER
+		    productos[j].stock -1;	//	ELIMINAMOS -1 AL STOCK DE DICHO ARTICULO SELECCIONADO
 		    clientes[m].Carrito.push(productos[j].descripcion);
 			clientes[m].PagoT += productos[j].precio;
 			fflush(stdin);
@@ -207,135 +207,117 @@ void iniciarSimulacion()
 	
 	
 	//	MOSTRAMOS LOS DATOS DEL CLIENTE 
- ofstream file; // CREAMOS UN OBJETO DE TIPO ofstreamtd::ofstream file; // CREAMOS UN OBJETO DE TIPO ofstream
- file.open("ultima_facturas.txt");	
-for (int i=0; i<14; i++)
-{
-if(clientes[i].tiempo_de_compra < 10)
-{
-	time_t now = time(0);
-    char* dt = ctime(&now);
-    
-    cout << "\n--------------------------------------------------------------------------------------------------\n"; // Línea de separación
-    cout << "FACTURA DE COMPRA\n"; // Título de la factura
-    cout << "Fecha y hora: " << dt; // Fecha y hora actual
-    cout << "----------------------------------------------------------------------------------------------------\n"; // Línea de separación
-    cout << "Nombre del cliente: " 		<< clientes[i].nombre 	<< "\n";
-    cout << "Cedula de identidad: V-" 	<< clientes[i].cv 		<< "\n";
-    cout << "Numero de Telefono: +58-" 	<< clientes[i].Nmr 		<< "\n";
-    cout << "----------------------------------------------------------------------------------------------------\n"; // Línea de separación
-    cout << "PRODUCTOS COMPRADOS:\n"; // Título de los productos comprados
-
-    file << "\n--------------------------------------------------------------------------------------------------\n"; // Línea de separación
-    file << "FACTURA DE COMPRA\n"; // Título de la factura
-    file << "Fecha y hora: " << dt; // Fecha y hora actual
-    file << "-----------------------------------------------------------------------------------------------------\n"; // Línea de separación
-    file << "Nombre del cliente: " 		<< clientes[i].nombre 	<< "\n";
-    file << "Cedula de identidad: V-" 	<< clientes[i].cv 		<< "\n";
-    file << "Numero de Telefono: +58-"	<< clientes[i].Nmr 		<< "\n";
-    file << "-----------------------------------------------------------------------------------------------------\n"; // Línea de separación
-    file << "PRODUCTOS COMPRADOS:\n"; // Título de los productos comprados
-
-    set<string> productosUnicos; // Para evitar la repetición de productos
-    stack<string> pilaDeProductos; // Pila de productos
-    double totalAPagar = 0; // Inicializamos el total a pagar
-    while(!clientes[i].Carrito.empty())
-    {
-        string producto = clientes[i].Carrito.top();
-        if(productosUnicos.insert(producto).second) // Si el producto es único
-        {
-            pilaDeProductos.push(producto); // Agregamos el producto a la pila
-        }
-        clientes[i].Carrito.pop();
-    }
-    for(int l = 1;!pilaDeProductos.empty();l++)
-    {
-        int cantidad = rand() % 5 + 1; // Genera un número aleatorio entre 1 y 10
-       //Busca el precio en el documento presio 
-       double precio = 0.0; // EN MANTENIMIENTO xD
-
-        totalAPagar += cantidad * precio; // Calculamos el total a pagar
-        cout << l << ". " << pilaDeProductos.top() << " - Cantidad: " << cantidad << "  ----> Precio: $" << precio << "\n";
-        file << l << ". " << pilaDeProductos.top() << " - Cantidad: " << cantidad << "  ----> Precio: $" << precio << "\n"; // ESCRIBIMOS EN EL ARCHIVO
-        pilaDeProductos.pop();
-    }
-    cout << "----------------------------------------------------------------------------------------------------\n"; // Línea de separación
-    cout << "Total a pagar: $" << totalAPagar << "\n";
-    cout << "Tiempo de compra: " << clientes[i].tiempo_de_compra << " min\n";
-    cout << "Tiempo de llegada: " << clientes[i].tiempo_de_llegada << " min\n";
-    cout << "----------------------------------------------------------------------------------------------------\n"; // Línea de separación
-
-    file << "----------------------------------------------------------------------------------------------------\n"; // Línea de separación
-    file << "Total a pagar: $" << totalAPagar << "\n";
-    file << "Tiempo de compra: " << clientes[i].tiempo_de_compra << " min\n";
-    file << "Tiempo de llegada: " << clientes[i].tiempo_de_llegada << " min\n";
-    file << "----------------------------------------------------------------------------------------------------\n"; // Línea de separación
-
-    // Generamos un método de pago aleatorio
-    int metodoDePago = rand() % 4;
-    switch(metodoDePago)
-    {
-        case 0:
-            cout << "Metodo de pago: Divisas $\n";
-            file << "Metodo de pago: Divisas $\n";
-            break;
-        case 1:
-            cout << "Metodo de pago: Pago por Punto de venta\n";
-            file << "Metodo de pago: Pago Por Punto de venta\n";
-            break;
-        case 2:
-            cout << "Metodo de pago: Efectivo\n";
-            file << "Metodo de pago: Efectivo\n";
-            break;
-        case 3:
-            cout << "Metodo de pago: Pago Movil\n";
-            file << "Metodo de pago: Pago Movil\n";
-            break;    
-            
-    }
-    cout << "----------------------------------------------------------------------------------------------------\n"; // Línea de separación
-    file << "----------------------------------------------------------------------------------------------------\n"; // Línea de separación
-
-    totalVenta += totalAPagar;
-    compradores++;
-    clientes_presentes++;		    
-    esperando_compra(clientes[i].tiempo_de_compra);
-    fflush(stdin);
-}
-	
-else
-{
-    clientes_presentes++;	    	
-    cout << "\n";
-    cout << "==========================================" 	<< endl;
-    cout << "Cliente: "<<clientes[i].nombre 				<< endl;
-    cout << "-------------------------------------------" 	<< endl;
-    cout << "Estado: - Ha excedido el tiempo de compra" 	<< endl;
-    cout << "        - No tiene fondos suficientes" 		<< endl;
-    cout << "        - Ha salido de la cola." 				<< endl;
-    cout << "-------------------------------------------" 	<< endl;
-    cout <<          "Gracias por su visita!" 				<< endl;
-    cout << "===========================================" 	<< endl;
-    Sleep(3000);
-    system("cls");
-    fflush(stdin);
-}
-}
-
+	ofstream file; // CREAMOS UN OBJETO DE TIPO ofstreamtd::ofstream file; // CREAMOS UN OBJETO DE TIPO ofstream
+	file.open("ultima_facturas.txt");	
+	for (int i=0; i<14; i++)
+	{
+		if(clientes[i].tiempo_de_compra < 10)
+		{
+			time_t now = time(0);
+		    char* dt = ctime(&now);
+		    
+ 			cout << "----------------------------------------------------------------------------------------------------\n"; // Línea de separación
+		    cout << "FACTURA DE COMPRA\n"; // Título de la factura
+		    cout << "Fecha y hora: " << dt; // Fecha y hora actual
+		    cout << "----------------------------------------------------------------------------------------------------\n"; // Línea de separación
+		    cout << "Nombre del cliente: " 		<< clientes[i].nombre 	<< "\n";
+		    cout << "Cedula de identidad: V-" 	<< clientes[i].cv 		<< "\n";
+		    cout << "Numero de Telefono: +58-" 	<< clientes[i].Nmr 		<< "\n";
+		    cout << "----------------------------------------------------------------------------------------------------\n"; // Línea de separación
+		    cout << "PRODUCTOS COMPRADOS:\n"; // Título de los productos comprados
+		
+		    set<string> productosUnicos; // Para evitar la repetición de productos
+		    stack<string> pilaDeProductos; // Pila de productos
+		    double totalAPagar = 0; // Inicializamos el total a pagar
+		    while(!clientes[i].Carrito.empty())
+		    {
+		        string producto = clientes[i].Carrito.top();
+		        if(productosUnicos.insert(producto).second) // Si el producto es único
+		        {
+		            pilaDeProductos.push(producto); // Agregamos el producto a la pila
+		        }
+		        clientes[i].Carrito.pop();
+		    }
+		    for(int l = 1;!pilaDeProductos.empty();l++)
+		    {
+		        int cantidad = rand() % 5 + 1; // Genera un número aleatorio entre 1 y 10
+		       //Busca el precio en el documento presio 
+		       double precio = 0.0; // EN MANTENIMIENTO xD
+		
+		        totalAPagar += cantidad * precio; // Calculamos el total a pagar
+		        cout << l << ". " << pilaDeProductos.top() << " - Cantidad: " << cantidad << "  ----> Precio: $" << precio << "\n";
+		        file << l << ". " << pilaDeProductos.top() << " - Cantidad: " << cantidad << "  ----> Precio: $" << precio << "\n"; // ESCRIBIMOS EN EL ARCHIVO
+		        pilaDeProductos.pop();
+		    }
+		    cout << "----------------------------------------------------------------------------------------------------\n"; // Línea de separación
+		    cout << "Total a pagar: $" << totalAPagar << "\n";
+		    cout << "Tiempo de compra: " << clientes[i].tiempo_de_compra << " min\n";
+		    cout << "Tiempo de llegada: " << clientes[i].tiempo_de_llegada << " min\n";
+		    cout << "----------------------------------------------------------------------------------------------------\n"; // Línea de separación
+		    // Generamos un método de pago aleatorio
+		    int metodoDePago = rand() % 4;
+		    switch(metodoDePago)
+		    {
+		        case 0:
+		            cout << "Metodo de pago: Divisas $\n";
+		            file << "Metodo de pago: Divisas $\n";
+		            break;
+		        case 1:
+		            cout << "Metodo de pago: Pago por Punto de venta\n";
+		            file << "Metodo de pago: Pago Por Punto de venta\n";
+		            break;
+		        case 2:
+		            cout << "Metodo de pago: Efectivo\n";
+		            file << "Metodo de pago: Efectivo\n";
+		            break;
+		        case 3:
+		            cout << "Metodo de pago: Pago Movil\n";
+		            file << "Metodo de pago: Pago Movil\n";
+		            break;    
+		    }
+		    cout << "----------------------------------------------------------------------------------------------------\n"; // Línea de separación
+		    totalVenta += totalAPagar;
+		    compradores++;
+		    clientes_presentes++;		    
+		    esperando_compra(clientes[i].tiempo_de_compra);
+		    fflush(stdin);
+		}
+	    else
+		{
+	    clientes_presentes++;	    	
+	    cout << "\n";
+	    cout << "===========================================" 	<< endl;
+	    cout << "Cliente: "<<clientes[i].nombre 				<< endl;
+	    cout << "-------------------------------------------" 	<< endl;
+	    cout << "Estado: - Ha excedido el tiempo de compra" 	<< endl;
+	    cout << "        - No tiene fondos suficientes" 		<< endl;
+	    cout << "        - Ha salido de la cola." 				<< endl;
+	    cout << "-------------------------------------------" 	<< endl;
+	    cout <<          "Gracias por su visita!" 				<< endl;
+	    cout << "===========================================" 	<< endl;
+	    Sleep(3000);
+	    system("cls");
+	    fflush(stdin);
+		}
+	}
 file.close(); // CERRAMOS EL ARCHIVO QUE GUARDO DATOS DE FACTURA
 
 	// BUSCADOR DE 	PRODUCTO MAS COMPRADO
-	std::ifstream filee("ultima_facturas.txt");
-    std::string line;
-    std::map<std::string, int> product_counts;
+	ifstream filee("ultima_facturas.txt");
+    string line;
+    map<string, int> product_counts;
 
-    if (filee.is_open()) {
-        while (getline(filee, line)) {
-            if (line.find("PRODUCTOS COMPRADOS:") != std::string::npos) {
-                while (getline(filee, line) && line != "----------------------------------------------------------------------------------------------------") {
-                    std::istringstream iss(line);
-                    std::string product;
-                    std::string temp;
+    if (filee.is_open())
+	{
+        while (getline(filee, line))
+		{
+            if (line.find("PRODUCTOS COMPRADOS:") != string::npos)
+			{
+                while (getline(filee, line) && line != "----------------------------------------------------------------------------------------------------")
+				{
+                    istringstream iss(line);
+                    string product;
+                    string temp;
                     int quantity;
 
                     iss >> temp; // Descartar el número de ítem
@@ -350,20 +332,21 @@ file.close(); // CERRAMOS EL ARCHIVO QUE GUARDO DATOS DE FACTURA
         filee.close();
     }
 
-    std::string max_product;
+    string max_product;
     int max_count = 0;
-    for (const auto& pair : product_counts) {
+    for (const auto& pair : product_counts)
+	{
         if (pair.second > max_count) {
             max_product = pair.first;
             max_count = pair.second;
         }
     }
 	//	MUESTRA LA CANTIDAD QUE EXCEDIO EL TIEMPO DE COMPRA
-	cout << "=========================================================================" << endl;
-	cout << "\n\t-Cantidad de Clientes que superaron el tiempo limite: " << tiempo_excedido << endl;
-	cout << "\n\t-Cantidad de Clientes que compraron exitosamente: " 	<< compradores << endl;
-	cout << "\n\t-Cantidad de Clientes que se presentaron a comprar: " 	<< clientes_presentes << endl;
-	cout << "\n\t-El producto mas vendido : " << max_product << " , con una cantidad total: " << max_count <<endl;
+	cout << "=========================================================================" 		<< endl;
+	cout << "\n\t-Cantidad de Clientes que superaron el tiempo limite: " << tiempo_excedido 	<< endl;
+	cout << "\n\t-Cantidad de Clientes que compraron exitosamente: " 	<< compradores 			<< endl;
+	cout << "\n\t-Cantidad de Clientes que se presentaron a comprar: " 	<< clientes_presentes 	<< endl;
+	cout << "\n\t-El producto mas vendido : " << max_product << " , con una cantidad total: " 	<< max_count <<endl;
 	cout << "\n\t-Total de ventas: $"									<< totalVenta<<endl;
 	cout<<"\n";
 	cout << "=========================================================================" << endl;
