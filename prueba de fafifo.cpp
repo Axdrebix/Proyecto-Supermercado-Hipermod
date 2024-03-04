@@ -1,4 +1,4 @@
-#include <iostream>
+z#include <iostream>
 #include <fstream>
 #include <conio.h>
 #include <string.h>
@@ -43,7 +43,7 @@ queue<Clientes> colaClientes;
 
 // DEFINICION GLOBAL DE VARIABLES
 int clientes_presentes= 0;
-int compradores = 0;											//Clientes que excedieron el tiempo y no les alcanso el dinero
+int compradores = 0;											//Clientes que excedieron el tiempo y no les alcanzo el dinero
 int tiempo_excedido = 0;										//Agrega a los clientes que excedieron el tiempo
 int espaciado;
 float totalVenta = 0;
