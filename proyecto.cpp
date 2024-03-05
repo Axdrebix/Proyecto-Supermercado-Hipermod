@@ -442,7 +442,7 @@ system("cls");
 void leerFacturas() {
 	system("cls");
     std::string linea;
-    std::ifstream archivo("ultimas_facturas.txt");
+    std::ifstream archivo("ultima_facturas.txt");
 
     if (archivo.is_open()) {
         while (getline(archivo, linea)) {
