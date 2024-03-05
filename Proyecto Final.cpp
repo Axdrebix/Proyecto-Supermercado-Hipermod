@@ -159,7 +159,7 @@ void Generar_Tiempos()
     
     for (int i = 0; i < 14; i++)
     {
-    	clientes[i].tiempo_de_llegada = rand() % 6 + 1;
+    	clientes[i].tiempo_de_llegada = rand() % 20 + 1;
 	}
 }
 
