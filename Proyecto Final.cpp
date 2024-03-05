@@ -150,16 +150,13 @@ void Generar_Tiempos()
     for (int i = 0; i < 14; i++)  
 	{
         clientes[i].tiempo_de_compra = rand() % 15 + 1;
-        if(clientes[i].tiempo_de_compra >= 10)
-    	{
-    		tiempo_excedido++;
-		}
 		fflush(stdin);
     }
     
     for (int i = 0; i < 14; i++)
     {
     	clientes[i].tiempo_de_llegada = rand() % 20 + 1;
+    	fflush(stdin);
 	}
 }
 
@@ -178,6 +175,7 @@ void iniciarSimulacion()
 	
 	// GENERAR TIEMPOS DE LLEGADA Y COMPRA
 	Generar_Tiempos();
+	fflush(stdin);
 	
 	// LLAMO A LA FUNCION PARA AGREGAR A LOS CLIENTES
 	cargar_clientes();
@@ -270,7 +268,8 @@ void iniciarSimulacion()
 		}
 	    else
 	    {
-		    clientes_presentes++;	    	
+		    clientes_presentes++;
+			tiempo_excedido++;  	
 		    cout << "\n";
 		    cout << "===========================================" 	<< endl;
 		    cout << "Cliente: "<<clientes[i].nombre 				<< endl;
@@ -295,7 +294,8 @@ void iniciarSimulacion()
 		    Sleep(3000);
 		    system("cls");
 		    fflush(stdin);
-		}	
+		}
+		fflush(stdin);	
 	}
 	
 	
@@ -306,6 +306,7 @@ void iniciarSimulacion()
 	cout << "\n\tCantidad de Clientes que se presentaron a comprar: " 							<< clientes_presentes << endl;
 	cout << "\n\tTotal de ventas: $"															<< totalVenta<<endl;
 	cout << "----------------------------------------------------------------------------------------------------\n"; // Línea de separación
+	fflush(stdin);
 	
 	file << "\n" << endl;
 	file << "\n\tCantidad de Clientes que superaron el tiempo limite: " << tiempo_excedido << endl;
@@ -318,6 +319,7 @@ void iniciarSimulacion()
 	{
         Clientes cliente = colaClientes.front();
         colaClientes.pop();
+        fflush(stdin);
     }
     system("pause");
 }
@@ -355,6 +357,7 @@ void esperando_compra(int tiempo)
 
 				Sleep(6000);
 				system("cls");
+				fflush(stdin);
 				main();
 			}
 		}
@@ -439,8 +442,8 @@ void mostrar_Productos()
 	    cout<<" $"		<<productos[i].precio		<<endl;
 	    cout<<" Stock: "<<productos[i].stock		<<endl;
 	    cout<<"\n";
+	    fflush(stdin);
 	};
-    fflush(stdin);
 }
 
 // FUNCION PARA MOSTRAR CLIENTES EN OPCION (OTROS)
@@ -449,11 +452,12 @@ void mostrar_Clientes()
 	cargar_clientes();	
 	for (int i = 0; i<14; i++)
 	{
-			cout << "\n";																				//ESPACIO ENTRE DATOS DE CADA CLIENTE
-	        cout << "Nombre: " 					<< clientes[i].nombre << endl;							//NOMBRE DEL CLIENTE
-	        cout << "Cedula de identidad: V-" 	<< clientes[i].cv << endl;								//CEDULA DEL CLIENTE
-	        cout << "Numero de Telefono: +58-" 	<< clientes[i].Nmr 					<< endl;			//CEDULA DEL CLIENTE
-	        cout << "Dinero disponible: $"		<< clientes[i].dinero_disponible << endl;				//DINERO DEL CLIENTE
+		cout << "\n";																				//ESPACIO ENTRE DATOS DE CADA CLIENTE
+	    cout << "Nombre: " 					<< clientes[i].nombre << endl;							//NOMBRE DEL CLIENTE
+		cout << "Cedula de identidad: V-" 	<< clientes[i].cv << endl;								//CEDULA DEL CLIENTE
+	    cout << "Numero de Telefono: +58-" 	<< clientes[i].Nmr 					<< endl;			//CEDULA DEL CLIENTE
+	    cout << "Dinero disponible: $"		<< clientes[i].dinero_disponible << endl;				//DINERO DEL CLIENTE
+	    fflush(stdin);
 	}
 }
 
