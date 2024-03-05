@@ -226,9 +226,10 @@ void iniciarSimulacion()
 		    cout << "FACTURA DE COMPRA\n"; // Título de la factura
 		    cout << "Fecha y hora: " << dt; // Fecha y hora actual
 		    cout << "----------------------------------------------------------------------------------------------------\n"; // Línea de separación
-		    cout << "Nombre del cliente: " 		<< clientes[i].nombre 	<< "\n";
-		    cout << "Cedula de identidad: V-" 	<< clientes[i].cv 		<< "\n";
-		    cout << "Numero de Telefono: +58-" 	<< clientes[i].Nmr 		<< "\n";
+		    cout << "Nombre del cliente: " 		<< clientes[i].nombre 				<< "\n";
+		    cout << "Cedula de identidad: V-" 	<< clientes[i].cv 					<< "\n";
+		    cout << "Numero de Telefono: +58-" 	<< clientes[i].Nmr 					<< "\n";
+		    cout << "Dinero Disponioble: $" 	<< clientes[i].dinero_disponible 	<< "\n";
 		    cout << "----------------------------------------------------------------------------------------------------\n"; // Línea de separación
 		    cout << "PRODUCTOS COMPRADOS:\n"; // Título de los productos comprados
 		    
@@ -239,6 +240,7 @@ void iniciarSimulacion()
 		    	 << "Nombre del cliente: " 		<< clientes[i].nombre 	<< "\n"
 		    	 << "Cedula de identidad: V-" 	<< clientes[i].cv 		<< "\n"
 		    	 << "Numero de Telefono: +58-" 	<< clientes[i].Nmr 		<< "\n"
+		    	 << "Dinero Disponioble: $" 	<< clientes[i].dinero_disponible 	<< "\n"
 		    	 << "----------------------------------------------------------------------------------------------------\n" // Línea de separación
 		    	 << "PRODUCTOS COMPRADOS:\n"; // Título de los productos comprados
 		    
