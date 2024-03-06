@@ -232,7 +232,7 @@ void iniciarSimulacion()
 		    cout << "----------------------------------------------------------------------------------------------------\n"; // Línea de separación
 		    cout << "PRODUCTOS COMPRADOS:\n"; // Título de los productos comprados
 		
-		    set<string> productosUnicos; // Para evitar la repetición de productos
+		    std::set<string> productosUnicos; // Para evitar la repetición de productos
 		    stack<string> pilaDeProductos; // Pila de productos
 		    double totalAPagar = 0; // Inicializamos el total a pagar
 		    while(!clientes[i].Carrito.empty())
