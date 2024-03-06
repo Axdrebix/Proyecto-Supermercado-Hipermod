@@ -248,7 +248,7 @@ void iniciarSimulacion()
 		    {
 		        int cantidad = rand() % 5 + 1; // Genera un número aleatorio entre 1 y 10
 		       //Busca el precio en el documento presio 
-		       double precio = 0.0; // EN MANTENIMIENTO xD
+		         double precio = (rand() % 1500 + 1) / 100.0; // Genera un precio aleatorio entre 0.01$ y 15.00$
 		
 		        totalAPagar += cantidad * precio; // Calculamos el total a pagar
 		        cout << l << ". " << pilaDeProductos.top() << " - Cantidad: " << cantidad << "  ----> Precio: $" << precio << "\n";
